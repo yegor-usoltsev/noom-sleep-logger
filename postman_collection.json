@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "00378ea9-587f-4e8a-bb94-0f33304f7369",
+		"name": "noom-sleep-logger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "44197967",
+		"_collection_link": "https://yegor-9968632.postman.co/workspace/Yegor's-Workspace~bf696e4d-866e-4299-8a61-94e788dae748/collection/44197967-00378ea9-587f-4e8a-bb94-0f33304f7369?action=share&source=collection_link&creator=44197967"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json();",
+									"pm.collectionVariables.set(\"USER_ID\", body.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Yegor\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/v1/users"
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yegor\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 19:01:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n    \"name\": \"Yegor\",\n    \"createdAt\": \"2025-04-17T22:01:06.045801\",\n    \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n}"
+						}
+					]
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 19:01:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n        \"name\": \"Yegor\",\n        \"createdAt\": \"2025-04-17T22:01:06.045801\",\n        \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 19:01:35 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n    \"name\": \"Yegor\",\n    \"createdAt\": \"2025-04-17T22:01:06.045801\",\n    \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "USER_ID",
+			"value": ""
+		}
+	]
+}
