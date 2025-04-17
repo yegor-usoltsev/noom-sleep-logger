@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DuplicateKeyException
 import java.util.*
 
@@ -15,7 +16,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should create a new user`() {
     // Given
-    val newUser = CreateUserRequest(name = "test-user")
+    val newUser = CreateUserRequest(name = " TEST-user ")
 
     // When
     val createdUser = userRepository.create(newUser)
@@ -23,7 +24,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     // Then
     assertThat(createdUser).isNotNull()
     assertThat(createdUser.id).isNotNull()
-    assertThat(createdUser.name).isEqualTo(newUser.name)
+    assertThat(createdUser.name).isEqualTo(newUser.name.trim().lowercase())
     assertThat(createdUser.createdAt).isNotNull()
     assertThat(createdUser.updatedAt).isNotNull()
   }
@@ -31,14 +32,27 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should throw when name is not unique`() {
     // Given
-    val newUser = CreateUserRequest(name = "test-user")
-    userRepository.create(newUser)
+    val newUser1 = CreateUserRequest(name = " TEST-user ")
+    val newUser2 = CreateUserRequest(name = " test-USER ")
+    userRepository.create(newUser1)
+
+    // When
+    val code = ThrowingCallable { userRepository.create(newUser2) }
+
+    // Then
+    assertThatThrownBy(code).isInstanceOf(DuplicateKeyException::class.java)
+  }
+
+  @Test
+  fun `create should throw when name is not valid`() {
+    // Given
+    val newUser = CreateUserRequest(name = "")
 
     // When
     val code = ThrowingCallable { userRepository.create(newUser) }
 
     // Then
-    assertThatThrownBy(code).isInstanceOf(DuplicateKeyException::class.java)
+    assertThatThrownBy(code).isInstanceOf(DataIntegrityViolationException::class.java)
   }
 
   @Test

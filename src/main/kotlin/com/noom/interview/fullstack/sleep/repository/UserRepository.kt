@@ -16,7 +16,7 @@ class UserRepository(private val jooq: DSLContext) {
   fun create(newUser: CreateUserRequest): User {
     return jooq
       .insertInto(USERS, USERS.NAME)
-      .values(newUser.name)
+      .values(newUser.name.trim().lowercase())
       .returning()
       .fetchSingle { it.toModel() }
   }
