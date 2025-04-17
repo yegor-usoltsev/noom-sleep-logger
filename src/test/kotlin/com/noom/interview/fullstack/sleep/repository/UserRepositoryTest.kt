@@ -16,8 +16,10 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   fun `create should create a new user`() {
     // Given
     val newUser = CreateUserRequest(name = "test-user")
+
     // When
     val createdUser = userRepository.create(newUser)
+
     // Then
     assertThat(createdUser).isNotNull()
     assertThat(createdUser.id).isNotNull()
@@ -31,8 +33,10 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     // Given
     val newUser = CreateUserRequest(name = "test-user")
     userRepository.create(newUser)
+
     // When
     val code = ThrowingCallable { userRepository.create(newUser) }
+
     // Then
     assertThatThrownBy(code).isInstanceOf(DuplicateKeyException::class.java)
   }
@@ -42,8 +46,10 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     // Given
     val user1 = userRepository.create(CreateUserRequest(name = "user1"))
     val user2 = userRepository.create(CreateUserRequest(name = "user2"))
+
     // When
     val users = userRepository.findAll()
+
     // Then
     assertThat(users).hasSizeGreaterThanOrEqualTo(2)
     assertThat(users).contains(user1, user2)
@@ -53,8 +59,10 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   fun `findById should return user when exists`() {
     // Given
     val createdUser = userRepository.create(CreateUserRequest(name = "test-user"))
+
     // When
     val foundUser = userRepository.findById(createdUser.id)
+
     // Then
     assertThat(foundUser).isNotNull()
     assertThat(foundUser).isEqualTo(createdUser)
@@ -64,8 +72,10 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   fun `findById should return null when user does not exist`() {
     // Given
     val nonExistentId = UUID.randomUUID()
+
     // When
     val foundUser = userRepository.findById(nonExistentId)
+
     // Then
     assertThat(foundUser).isNull()
   }
