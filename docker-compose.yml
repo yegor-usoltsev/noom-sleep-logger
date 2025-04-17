@@ -1,0 +1,23 @@
+---
+services:
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sleep
+      SPRING_DATASOURCE_USERNAME: sleep
+      SPRING_DATASOURCE_PASSWORD: sleep
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    profiles:
+      - app
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: sleep
+      POSTGRES_USER: sleep
+      POSTGRES_PASSWORD: sleep
+    ports:
+      - "5432:5432"

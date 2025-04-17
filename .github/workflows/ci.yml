@@ -1,0 +1,30 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [ "**" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: sleep
+          POSTGRES_USER: sleep
+          POSTGRES_PASSWORD: sleep
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew build
+        env:
+          ORG_GRADLE_PROJECT_jdbcUrl: jdbc:postgresql://postgres:5432/sleep
+      - run: docker build .

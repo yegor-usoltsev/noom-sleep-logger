@@ -1,0 +1,18 @@
+---
+logging:
+  level:
+    org.jooq.Constants: off
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sleep
+    username: sleep
+    password: sleep
+  jackson:
+    default-property-inclusion: non_null
+    locale: en_US
+    time-zone: UTC
+  main:
+    banner-mode: off
+  web:
+    locale: en_US
+    locale-resolver: fixed
