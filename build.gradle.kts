@@ -24,6 +24,7 @@ val jooqVersion: String by project
 val kotlinVersion: String by project
 val postgresqlVersion: String by project
 val springBootVersion: String by project
+val springmockkVersion: String by project
 
 extra["flyway.version"] = flywayVersion
 extra["jooq.version"] = jooqVersion
@@ -43,8 +44,10 @@ dependencies {
   implementation("org.jooq:jooq-postgres-extensions:$jooqVersion")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-jooq")
+  implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-web")
   runtimeOnly("org.postgresql:postgresql")
+  testImplementation("com.ninja-squad:springmockk:$springmockkVersion")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
