@@ -9,6 +9,7 @@ plugins {
   id("org.jooq.jooq-codegen-gradle")
   id("org.springframework.boot")
   idea
+  jacoco
   kotlin("jvm")
   kotlin("plugin.spring")
 }
@@ -128,6 +129,18 @@ tasks.withType<Test> {
     showExceptions = true
   }
   useJUnitPlatform()
+  finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+  reports {
+    html.required = true
+    xml.required = true
+  }
+  classDirectories.setFrom(files(classDirectories.files.map {
+    fileTree(it).exclude("com/noom/interview/fullstack/sleep/jooq/**")
+  }))
+  dependsOn(tasks.test)
 }
 
 idea {
