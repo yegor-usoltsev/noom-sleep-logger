@@ -23,7 +23,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     // Then
     assertThat(createdUser).isNotNull()
     assertThat(createdUser.id).isNotNull()
-    assertThat(createdUser.name).isEqualTo("test-user")
+    assertThat(createdUser.name).isEqualTo(newUser.name)
     assertThat(createdUser.createdAt).isNotNull()
     assertThat(createdUser.updatedAt).isNotNull()
   }

@@ -22,7 +22,7 @@ class UserServiceTest {
     val request = CreateUserRequest(name = "test-user")
     val expectedUser = User(
       id = UUID.randomUUID(),
-      name = "test-user",
+      name = request.name,
       createdAt = LocalDateTime.now(),
       updatedAt = LocalDateTime.now()
     )
