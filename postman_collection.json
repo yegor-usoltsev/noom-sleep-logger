@@ -18,7 +18,9 @@
 							"script": {
 								"exec": [
 									"const body = pm.response.json();",
-									"pm.collectionVariables.set(\"USER_ID\", body.id);"
+									"if (pm.response.code === 201 && body?.id) {",
+									"    pm.collectionVariables.set(\"USER_ID\", body.id);",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -70,7 +72,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 17 Apr 2025 19:01:06 GMT"
+									"value": "Thu, 17 Apr 2025 20:38:51 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -82,7 +84,91 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n    \"name\": \"Yegor\",\n    \"createdAt\": \"2025-04-17T22:01:06.045801\",\n    \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n}"
+							"body": "{\n    \"id\": \"1a4bb740-a43c-469e-b4d8-786af60229de\",\n    \"name\": \"yegor\",\n    \"createdAt\": \"2025-04-17T23:38:51.254781\",\n    \"updatedAt\": \"2025-04-17T23:38:51.254781\"\n}"
+						},
+						{
+							"name": "409 Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yegor\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 20:39:27 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [insert into \\\"users\\\" (\\\"name\\\") values (?) returning \\\"users\\\".\\\"id\\\", \\\"users\\\".\\\"name\\\", \\\"users\\\".\\\"created_at\\\", \\\"users\\\".\\\"updated_at\\\"]; ERROR: duplicate key value violates unique constraint \\\"users_name_key\\\"\\n  Detail: Key (name)=(yegor) already exists.\",\n    \"instance\": \"/api/v1/users\"\n}"
+						},
+						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \" !@# \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 20:41:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users\"\n}"
 						}
 					]
 				},
@@ -115,7 +201,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 17 Apr 2025 19:01:26 GMT"
+									"value": "Thu, 17 Apr 2025 20:38:58 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -127,7 +213,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n        \"name\": \"Yegor\",\n        \"createdAt\": \"2025-04-17T22:01:06.045801\",\n        \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"1a4bb740-a43c-469e-b4d8-786af60229de\",\n        \"name\": \"yegor\",\n        \"createdAt\": \"2025-04-17T23:38:51.254781\",\n        \"updatedAt\": \"2025-04-17T23:38:51.254781\"\n    }\n]"
 						}
 					]
 				},
@@ -160,7 +246,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 17 Apr 2025 19:01:35 GMT"
+									"value": "Thu, 17 Apr 2025 20:39:07 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -172,7 +258,42 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"e73ecf19-148e-495b-898a-756eba15c540\",\n    \"name\": \"Yegor\",\n    \"createdAt\": \"2025-04-17T22:01:06.045801\",\n    \"updatedAt\": \"2025-04-17T22:01:06.045801\"\n}"
+							"body": "{\n    \"id\": \"1a4bb740-a43c-469e-b4d8-786af60229de\",\n    \"name\": \"yegor\",\n    \"createdAt\": \"2025-04-17T23:38:51.254781\",\n    \"updatedAt\": \"2025-04-17T23:38:51.254781\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 20:40:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/00000000-0000-0000-0000-000000000000\"\n}"
 						}
 					]
 				}
@@ -209,7 +330,7 @@
 		},
 		{
 			"key": "USER_ID",
-			"value": ""
+			"value": "00000000-0000-0000-0000-000000000000"
 		}
 	]
 }
