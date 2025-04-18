@@ -15,12 +15,10 @@ class UserService(private val userRepository: UserRepository) {
     return userRepository.create(newUser)
   }
 
-  @Transactional
   fun findAll(): List<User> {
     return userRepository.findAll()
   }
 
-  @Transactional
   fun findById(id: UUID): User? {
     return userRepository.findById(id)
   }

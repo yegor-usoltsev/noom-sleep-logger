@@ -11,6 +11,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -48,6 +49,95 @@ class SleepLogServiceTest {
     // Then
     assertThat(result).isEqualTo(expectedSleepLog)
     verify(exactly = 1) { sleepLogRepository.create(userId, request) }
+  }
+
+  @Test
+  fun findAll() {
+    // Given
+    val userId = UUID.randomUUID()
+    val expectedSleepLogs = listOf(
+      SleepLog(
+        id = UUID.randomUUID(),
+        userId = userId,
+        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS),
+        mood = Mood.GOOD,
+        date = LocalDate.now(),
+        duration = Duration.ofHours(8),
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
+      ),
+      SleepLog(
+        id = UUID.randomUUID(),
+        userId = userId,
+        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
+        wakeTime = Instant.now(),
+        mood = Mood.OK,
+        date = LocalDate.now(),
+        duration = Duration.ofHours(6),
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
+      )
+    )
+    every { sleepLogRepository.findAll(userId) } returns expectedSleepLogs
+
+    // When
+    val result = sleepLogService.findAll(userId)
+
+    // Then
+    assertThat(result).isEqualTo(expectedSleepLogs)
+    verify(exactly = 1) { sleepLogRepository.findAll(userId) }
+  }
+
+  @Test
+  fun findLatest() {
+    // Given
+    val userId = UUID.randomUUID()
+    val expectedSleepLog = SleepLog(
+      id = UUID.randomUUID(),
+      userId = userId,
+      bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
+      wakeTime = Instant.now(),
+      mood = Mood.GOOD,
+      date = LocalDate.now(),
+      duration = Duration.ofHours(8),
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
+    )
+    every { sleepLogRepository.findLatest(userId) } returns expectedSleepLog
+
+    // When
+    val result = sleepLogService.findLatest(userId)
+
+    // Then
+    assertThat(result).isEqualTo(expectedSleepLog)
+    verify(exactly = 1) { sleepLogRepository.findLatest(userId) }
+  }
+
+  @Test
+  fun findById() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val expectedSleepLog = SleepLog(
+      id = sleepLogId,
+      userId = userId,
+      bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
+      wakeTime = Instant.now(),
+      mood = Mood.GOOD,
+      date = LocalDate.now(),
+      duration = Duration.ofHours(8),
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
+    )
+    every { sleepLogRepository.findById(userId, sleepLogId) } returns expectedSleepLog
+
+    // When
+    val result = sleepLogService.findById(userId, sleepLogId)
+
+    // Then
+    assertThat(result).isEqualTo(expectedSleepLog)
+    verify(exactly = 1) { sleepLogRepository.findById(userId, sleepLogId) }
   }
 
 }

@@ -24,6 +24,7 @@ class UserRepository(private val jooq: DSLContext) {
   fun findAll(): List<User> {
     return jooq
       .selectFrom(USERS)
+      .orderBy(USERS.CREATED_AT.desc())
       .fetch { it.toModel() }
   }
 

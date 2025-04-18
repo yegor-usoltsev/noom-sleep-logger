@@ -15,4 +15,16 @@ class SleepLogService(private val sleepLogRepository: SleepLogRepository) {
     return sleepLogRepository.create(userId, newSleepLog)
   }
 
+  fun findAll(userId: UUID): List<SleepLog> {
+    return sleepLogRepository.findAll(userId)
+  }
+
+  fun findLatest(userId: UUID): SleepLog? {
+    return sleepLogRepository.findLatest(userId)
+  }
+
+  fun findById(userId: UUID, id: UUID): SleepLog? {
+    return sleepLogRepository.findById(userId, id)
+  }
+
 }
