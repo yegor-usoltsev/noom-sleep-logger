@@ -1,6 +1,7 @@
 package com.noom.interview.fullstack.sleep.model
 
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
+import jakarta.validation.constraints.Past
 import jakarta.validation.constraints.PastOrPresent
 import java.time.Duration
 import java.time.Instant
@@ -20,7 +21,7 @@ data class SleepLog(
 )
 
 data class CreateSleepLogRequest(
-  @field:PastOrPresent
+  @field:Past
   val bedTime: Instant,
   @field:PastOrPresent
   val wakeTime: Instant,
