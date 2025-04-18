@@ -26,8 +26,8 @@ class UserController(private val userService: UserService) {
     return ResponseEntity(users, HttpStatus.OK)
   }
 
-  @GetMapping("/{id}")
-  fun findById(@PathVariable id: UUID): ResponseEntity<User> {
+  @GetMapping("/{user-id}")
+  fun findById(@PathVariable(value = "user-id") id: UUID): ResponseEntity<User> {
     val user = userService.findById(id) ?: throw NotFoundException()
     return ResponseEntity(user, HttpStatus.OK)
   }

@@ -111,7 +111,7 @@ class UserControllerTest @Autowired constructor(
     every { userService.findById(userId) } returns expectedUser
 
     // When/Then
-    mockMvc.get("/api/v1/users/{id}", userId)
+    mockMvc.get("/api/v1/users/{user-id}", userId)
       .andExpect {
         status { isOk() }
       }.andDo {
@@ -129,7 +129,7 @@ class UserControllerTest @Autowired constructor(
     every { userService.findById(userId) } returns null
 
     // When/Then
-    mockMvc.get("/api/v1/users/{id}", userId)
+    mockMvc.get("/api/v1/users/{user-id}", userId)
       .andExpect {
         status { isNotFound() }
       }
