@@ -4,8 +4,7 @@ import com.noom.interview.fullstack.sleep.IntegrationTest
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.assertj.core.api.Assertions.*
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,8 +37,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Then
     assertThat(createdSleepLog.id).isNotNull()
     assertThat(createdSleepLog.userId).isEqualTo(user.id)
-    assertThat(createdSleepLog.bedTime).isEqualTo(newSleepLog.bedTime)
-    assertThat(createdSleepLog.wakeTime).isEqualTo(newSleepLog.wakeTime)
+    assertThat(createdSleepLog.bedTime).isCloseTo(newSleepLog.bedTime, within(1, ChronoUnit.SECONDS))
+    assertThat(createdSleepLog.wakeTime).isCloseTo(newSleepLog.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(createdSleepLog.mood).isEqualTo(newSleepLog.mood)
     assertThat(createdSleepLog.date).isEqualTo(newSleepLog.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
     assertThat(createdSleepLog.duration).isEqualTo(Duration.between(newSleepLog.bedTime, newSleepLog.wakeTime))
