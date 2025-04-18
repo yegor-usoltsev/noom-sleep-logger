@@ -1,6 +1,6 @@
 package com.noom.interview.fullstack.sleep.repository
 
-import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.createUserRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
@@ -19,7 +19,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should create a new user`() {
     // Given
-    val newUser = CreateUserRequest(name = " TEST-user ")
+    val newUser = createUserRequest(name = " TEST-user ")
 
     // When
     val createdUser = userRepository.create(newUser)
@@ -34,8 +34,8 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should throw when name is not unique`() {
     // Given
-    val newUser1 = CreateUserRequest(name = " TEST-user ")
-    val newUser2 = CreateUserRequest(name = " test-USER ")
+    val newUser1 = createUserRequest(name = " TEST-user ")
+    val newUser2 = createUserRequest(name = " test-USER ")
     userRepository.create(newUser1)
 
     // When
@@ -48,7 +48,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should throw when name is not valid`() {
     // Given
-    val newUser = CreateUserRequest(name = "")
+    val newUser = createUserRequest(name = "") // name is not valid
 
     // When
     val code = ThrowingCallable { userRepository.create(newUser) }
@@ -60,8 +60,8 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `findAll should return all users`() {
     // Given
-    val user1 = userRepository.create(CreateUserRequest(name = "user1"))
-    val user2 = userRepository.create(CreateUserRequest(name = "user2"))
+    val user1 = userRepository.create(createUserRequest())
+    val user2 = userRepository.create(createUserRequest())
 
     // When
     val users = userRepository.findAll()
@@ -74,7 +74,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `findById should return user when exists`() {
     // Given
-    val createdUser = userRepository.create(CreateUserRequest(name = "test-user"))
+    val createdUser = userRepository.create(createUserRequest())
 
     // When
     val foundUser = userRepository.findById(createdUser.id)

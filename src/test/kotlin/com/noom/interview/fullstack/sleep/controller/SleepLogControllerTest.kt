@@ -3,10 +3,11 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.jooq.enums.Mood
-import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
+import com.noom.interview.fullstack.sleep.createSleepLog
+import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.model.SleepLog
 import com.noom.interview.fullstack.sleep.service.SleepLogService
+import com.noom.interview.fullstack.sleep.toSleepLog
 import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -16,10 +17,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import java.time.Duration
 import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -36,22 +34,8 @@ class SleepLogControllerTest @Autowired constructor(
   fun `create should return 201 with created sleep log`() {
     // Given
     val userId = UUID.randomUUID()
-    val request = CreateSleepLogRequest(
-      bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
-      wakeTime = Instant.now(),
-      mood = Mood.GOOD
-    )
-    val expectedSleepLog = SleepLog(
-      id = UUID.randomUUID(),
-      userId = userId,
-      bedTime = request.bedTime,
-      wakeTime = request.wakeTime,
-      mood = request.mood,
-      date = request.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate(),
-      duration = Duration.between(request.bedTime, request.wakeTime),
-      createdAt = Instant.now(),
-      updatedAt = Instant.now()
-    )
+    val request = createSleepLogRequest()
+    val expectedSleepLog = request.toSleepLog(userId = userId)
     every { sleepLogService.create(userId, request) } returns expectedSleepLog
 
     // When/Then
@@ -72,10 +56,8 @@ class SleepLogControllerTest @Autowired constructor(
   fun `create should return 400 when bedTime is in a future`() {
     // Given
     val userId = UUID.randomUUID()
-    val request = CreateSleepLogRequest(
-      bedTime = Instant.now().plus(8, ChronoUnit.HOURS), // bedTime is in a future
-      wakeTime = Instant.now(),
-      mood = Mood.GOOD
+    val request = createSleepLogRequest(
+      bedTime = Instant.now().plus(8, ChronoUnit.HOURS) // bedTime is in a future
     )
 
     // When/Then
@@ -91,10 +73,9 @@ class SleepLogControllerTest @Autowired constructor(
   fun `create should return 422 when wakeTime is before bedTime`() {
     // Given
     val userId = UUID.randomUUID()
-    val request = CreateSleepLogRequest(
+    val request = createSleepLogRequest(
       bedTime = Instant.now(),
-      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS), // wakeTime is before bedTime
-      mood = Mood.GOOD
+      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -111,28 +92,8 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val expectedSleepLogs = listOf(
-      SleepLog(
-        id = UUID.randomUUID(),
-        userId = userId,
-        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS),
-        mood = Mood.GOOD,
-        date = LocalDate.now(),
-        duration = Duration.ofHours(8),
-        createdAt = Instant.now(),
-        updatedAt = Instant.now()
-      ),
-      SleepLog(
-        id = UUID.randomUUID(),
-        userId = userId,
-        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
-        wakeTime = Instant.now(),
-        mood = Mood.OK,
-        date = LocalDate.now(),
-        duration = Duration.ofHours(6),
-        createdAt = Instant.now(),
-        updatedAt = Instant.now()
-      )
+      createSleepLog(userId = userId),
+      createSleepLog(userId = userId)
     )
     every { sleepLogService.findAll(userId) } returns expectedSleepLogs
 
@@ -152,17 +113,7 @@ class SleepLogControllerTest @Autowired constructor(
   fun `findLatest should return 200 with latest sleep log`() {
     // Given
     val userId = UUID.randomUUID()
-    val expectedSleepLog = SleepLog(
-      id = UUID.randomUUID(),
-      userId = userId,
-      bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
-      wakeTime = Instant.now(),
-      mood = Mood.GOOD,
-      date = LocalDate.now(),
-      duration = Duration.ofHours(8),
-      createdAt = Instant.now(),
-      updatedAt = Instant.now()
-    )
+    val expectedSleepLog = createSleepLog(userId = userId)
     every { sleepLogService.findLatest(userId) } returns expectedSleepLog
 
     // When/Then
@@ -195,17 +146,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    val expectedSleepLog = SleepLog(
-      id = sleepLogId,
-      userId = userId,
-      bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
-      wakeTime = Instant.now(),
-      mood = Mood.GOOD,
-      date = LocalDate.now(),
-      duration = Duration.ofHours(8),
-      createdAt = Instant.now(),
-      updatedAt = Instant.now()
-    )
+    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
     every { sleepLogService.findById(userId, sleepLogId) } returns expectedSleepLog
 
     // When/Then

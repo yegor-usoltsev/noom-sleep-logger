@@ -3,9 +3,11 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.createUser
+import com.noom.interview.fullstack.sleep.createUserRequest
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
+import com.noom.interview.fullstack.sleep.toUser
 import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,7 +17,6 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import java.time.Instant
 import java.util.*
 
 @WebMvcTest(UserController::class)
@@ -30,13 +31,8 @@ class UserControllerTest @Autowired constructor(
   @Test
   fun `create should return 201 with created user`() {
     // Given
-    val request = CreateUserRequest(name = "test-user")
-    val expectedUser = User(
-      id = UUID.randomUUID(),
-      name = request.name,
-      createdAt = Instant.now(),
-      updatedAt = Instant.now()
-    )
+    val request = createUserRequest()
+    val expectedUser = request.toUser()
     every { userService.create(request) } returns expectedUser
 
     // When/Then
@@ -54,9 +50,9 @@ class UserControllerTest @Autowired constructor(
   }
 
   @Test
-  fun `create should return 400 when request is invalid`() {
+  fun `create should return 400 when name is not valid`() {
     // Given
-    val request = CreateUserRequest(name = "") // Invalid name
+    val request = createUserRequest(name = "") // name is not valid
 
     // When/Then
     mockMvc.post("/api/v1/users") {
@@ -71,18 +67,8 @@ class UserControllerTest @Autowired constructor(
   fun `findAll should return 200 with all users`() {
     // Given
     val expectedUsers = listOf(
-      User(
-        id = UUID.randomUUID(),
-        name = "user1",
-        createdAt = Instant.now(),
-        updatedAt = Instant.now()
-      ),
-      User(
-        id = UUID.randomUUID(),
-        name = "user2",
-        createdAt = Instant.now(),
-        updatedAt = Instant.now()
-      )
+      createUser(),
+      createUser()
     )
     every { userService.findAll() } returns expectedUsers
 
@@ -102,12 +88,7 @@ class UserControllerTest @Autowired constructor(
   fun `findById should return 200 with user when exists`() {
     // Given
     val userId = UUID.randomUUID()
-    val expectedUser = User(
-      id = userId,
-      name = "test-user",
-      createdAt = Instant.now(),
-      updatedAt = Instant.now()
-    )
+    val expectedUser = createUser(id = userId)
     every { userService.findById(userId) } returns expectedUser
 
     // When/Then
