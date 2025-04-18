@@ -81,4 +81,37 @@ class SleepLogServiceTest {
     verify(exactly = 1) { sleepLogRepository.findById(userId, sleepLogId) }
   }
 
+  @Test
+  fun updateById() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val request = createSleepLogRequest()
+    val expectedSleepLog = request.toSleepLog(id = sleepLogId, userId = userId)
+    every { sleepLogRepository.updateById(userId, sleepLogId, request) } returns expectedSleepLog
+
+    // When
+    val result = sleepLogService.updateById(userId, sleepLogId, request)
+
+    // Then
+    assertThat(result).isEqualTo(expectedSleepLog)
+    verify(exactly = 1) { sleepLogRepository.updateById(userId, sleepLogId, request) }
+  }
+
+  @Test
+  fun deleteById() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
+    every { sleepLogRepository.deleteById(userId, sleepLogId) } returns expectedSleepLog
+
+    // When
+    val result = sleepLogService.deleteById(userId, sleepLogId)
+
+    // Then
+    assertThat(result).isEqualTo(expectedSleepLog)
+    verify(exactly = 1) { sleepLogRepository.deleteById(userId, sleepLogId) }
+  }
+
 }
