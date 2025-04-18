@@ -101,4 +101,131 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThatThrownBy(code).isInstanceOf(DataIntegrityViolationException::class.java)
   }
 
+  @Test
+  fun `findAll should return all sleep logs for a user`() {
+    // Given
+    val user = userRepository.create(CreateUserRequest(name = "test-user"))
+    val sleepLog1 = sleepLogRepository.create(
+      user.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS),
+        mood = Mood.GOOD
+      )
+    )
+    val sleepLog2 = sleepLogRepository.create(
+      user.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
+        wakeTime = Instant.now(),
+        mood = Mood.OK
+      )
+    )
+
+    // When
+    val sleepLogs = sleepLogRepository.findAll(user.id)
+
+    // Then
+    assertThat(sleepLogs).hasSizeGreaterThanOrEqualTo(2)
+    assertThat(sleepLogs).contains(sleepLog1, sleepLog2)
+  }
+
+  @Test
+  fun `findLatest should return the most recent sleep log for a user`() {
+    // Given
+    val user = userRepository.create(CreateUserRequest(name = "test-user"))
+    sleepLogRepository.create(
+      user.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS),
+        mood = Mood.GOOD
+      )
+    )
+    val latestLog = sleepLogRepository.create(
+      user.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
+        wakeTime = Instant.now(),
+        mood = Mood.OK
+      )
+    )
+
+    // When
+    val foundLog = sleepLogRepository.findLatest(user.id)
+
+    // Then
+    assertThat(foundLog).isNotNull()
+    assertThat(foundLog).isEqualTo(latestLog)
+  }
+
+
+  @Test
+  fun `findLatest should return null when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val nonExistentId = UUID.randomUUID()
+
+    // When
+    val foundLog = sleepLogRepository.findLatest(userId)
+
+    // Then
+    assertThat(foundLog).isNull()
+  }
+
+  @Test
+  fun `findById should return sleep log when exists`() {
+    // Given
+    val user = userRepository.create(CreateUserRequest(name = "test-user"))
+    val createdLog = sleepLogRepository.create(
+      user.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
+        wakeTime = Instant.now(),
+        mood = Mood.OK
+      )
+    )
+
+    // When
+    val foundLog = sleepLogRepository.findById(user.id, createdLog.id)
+
+    // Then
+    assertThat(foundLog).isNotNull()
+    assertThat(foundLog).isEqualTo(createdLog)
+  }
+
+  @Test
+  fun `findById should return null when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val nonExistentId = UUID.randomUUID()
+
+    // When
+    val foundLog = sleepLogRepository.findById(userId, nonExistentId)
+
+    // Then
+    assertThat(foundLog).isNull()
+  }
+
+  @Test
+  fun `findById should return null when sleep log belongs to different user`() {
+    // Given
+    val user1 = userRepository.create(CreateUserRequest(name = "test-user-1"))
+    val user2 = userRepository.create(CreateUserRequest(name = "test-user-2"))
+    val createdLogForUser2 = sleepLogRepository.create(
+      user2.id,
+      CreateSleepLogRequest(
+        bedTime = Instant.now().minus(6, ChronoUnit.HOURS),
+        wakeTime = Instant.now(),
+        mood = Mood.OK
+      )
+    )
+
+    // When
+    val foundLog = sleepLogRepository.findById(user1.id, createdLogForUser2.id)
+
+    // Then
+    assertThat(foundLog).isNull()
+  }
+
 }

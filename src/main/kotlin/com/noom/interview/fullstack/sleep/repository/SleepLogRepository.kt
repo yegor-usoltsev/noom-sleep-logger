@@ -28,6 +28,29 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .fetchSingle { it.toModel() }
   }
 
+  fun findAll(userId: UUID): List<SleepLog> {
+    return jooq
+      .selectFrom(SLEEP_LOGS)
+      .where(SLEEP_LOGS.USER_ID.eq(userId))
+      .fetch { it.toModel() }
+  }
+
+  fun findLatest(userId: UUID): SleepLog? {
+    return jooq
+      .selectFrom(SLEEP_LOGS)
+      .where(SLEEP_LOGS.USER_ID.eq(userId))
+      .orderBy(SLEEP_LOGS.DATE.desc())
+      .limit(1)
+      .fetchOne { it.toModel() }
+  }
+
+  fun findById(userId: UUID, id: UUID): SleepLog? {
+    return jooq
+      .selectFrom(SLEEP_LOGS)
+      .where(SLEEP_LOGS.USER_ID.eq(userId).and(SLEEP_LOGS.ID.eq(id)))
+      .fetchOne { it.toModel() }
+  }
+
 }
 
 fun SleepLogsRecord.toModel(): SleepLog {
