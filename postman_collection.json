@@ -713,6 +713,321 @@
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/d1010a68-8590-4608-adf9-6d1d48097346/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
 						}
 					]
+				},
+				{
+					"name": "updateById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:08:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"66effc69-e7ab-457b-a58c-ced654a12064\",\n    \"userId\": \"72da7491-301e-4687-b662-450635166b94\",\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-18T16:06:34.753861Z\",\n    \"updatedAt\": \"2025-04-18T16:08:39.282585Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2125-04-17T23:00:00Z\",\n    \"wakeTime\": \"2125-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:11:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/ff57e9a2-745f-42b9-9b63-87cb7c32df97\"\n}"
+						},
+						{
+							"name": "409 Conflict",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:12:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [update \\\"sleep_logs\\\" set \\\"user_id\\\" = cast(? as uuid), \\\"bed_time\\\" = cast(? as timestamp with time zone), \\\"wake_time\\\" = cast(? as timestamp with time zone), \\\"mood\\\" = cast(? as \\\"mood\\\"), \\\"updated_at\\\" = cast(? as timestamp with time zone) where (\\\"sleep_logs\\\".\\\"user_id\\\" = cast(? as uuid) and \\\"sleep_logs\\\".\\\"id\\\" = cast(? as uuid)) returning \\\"sleep_logs\\\".\\\"id\\\", \\\"sleep_logs\\\".\\\"user_id\\\", \\\"sleep_logs\\\".\\\"bed_time\\\", \\\"sleep_logs\\\".\\\"wake_time\\\", \\\"sleep_logs\\\".\\\"mood\\\", \\\"sleep_logs\\\".\\\"date\\\", \\\"sleep_logs\\\".\\\"duration\\\", \\\"sleep_logs\\\".\\\"created_at\\\", \\\"sleep_logs\\\".\\\"updated_at\\\"]; ERROR: duplicate key value violates unique constraint \\\"sleep_logs_user_id_date_key\\\"\\n  Detail: Key (user_id, date)=(72da7491-301e-4687-b662-450635166b94, 2025-04-18) already exists.\",\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/6f7ce677-d56a-4144-9044-838d3ae7686a\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:10:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						{
+							"name": "422 Unprocessable Entity",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2025-04-18T07:00:00Z\",\n    \"wakeTime\": \"2025-04-17T23:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:12:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Unprocessable Entity\",\n    \"status\": 422,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/ff57e9a2-745f-42b9-9b63-87cb7c32df97\"\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:09:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"66effc69-e7ab-457b-a58c-ced654a12064\",\n    \"userId\": \"72da7491-301e-4687-b662-450635166b94\",\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-18T16:06:34.753861Z\",\n    \"updatedAt\": \"2025-04-18T16:08:39.282585Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:10:07 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
 				}
 			]
 		}
