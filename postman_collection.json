@@ -309,7 +309,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"const body = pm.response.json();",
+									"if (pm.response.code === 201 && body?.id) {",
+									"    pm.collectionVariables.set(\"SLEEP_LOG_ID\", body.id);",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -504,6 +507,212 @@
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Unprocessable Entity\",\n    \"status\": 422,\n    \"instance\": \"/api/v1/users/f4600cf1-50f7-4501-ae92-4d9172a28548/sleep-logs\"\n}"
 						}
 					]
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 14:11:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-17T23:00:00Z\",\n        \"wakeTime\": \"2025-04-18T07:00:00Z\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n        \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n    },\n    {\n        \"id\": \"52ccbd70-be2a-41e1-bac3-b9d4a808eb46\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-16T23:00:00Z\",\n        \"wakeTime\": \"2025-04-17T06:00:00Z\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-18T14:10:36.399616Z\",\n        \"updatedAt\": \"2025-04-18T14:10:36.399616Z\"\n    },\n    {\n        \"id\": \"d5cec2b9-ffe9-4674-96d7-5781fcd01753\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-16T01:00:00Z\",\n        \"wakeTime\": \"2025-04-16T07:00:00Z\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-18T14:11:05.511279Z\",\n        \"updatedAt\": \"2025-04-18T14:11:05.511279Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "findLatest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/latest"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/latest"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 14:12:12 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n    \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n    \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 14:16:34 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n    \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n    \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 14:16:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/d1010a68-8590-4608-adf9-6d1d48097346/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
 				}
 			]
 		}
@@ -539,6 +748,11 @@
 		{
 			"key": "USER_ID",
 			"value": "00000000-0000-0000-0000-000000000000"
+		},
+		{
+			"key": "SLEEP_LOG_ID",
+			"value": "00000000-0000-0000-0000-000000000000",
+			"type": "string"
 		}
 	]
 }
