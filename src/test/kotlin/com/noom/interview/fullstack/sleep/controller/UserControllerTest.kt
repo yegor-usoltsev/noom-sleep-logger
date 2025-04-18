@@ -15,7 +15,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import java.time.LocalDateTime
+import java.time.Instant
 import java.util.*
 
 class UserControllerTest @Autowired constructor(
@@ -33,8 +33,8 @@ class UserControllerTest @Autowired constructor(
     val expectedUser = User(
       id = UUID.randomUUID(),
       name = request.name,
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userService.create(request) } returns expectedUser
 
@@ -73,14 +73,14 @@ class UserControllerTest @Autowired constructor(
       User(
         id = UUID.randomUUID(),
         name = "user1",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       ),
       User(
         id = UUID.randomUUID(),
         name = "user2",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       )
     )
     every { userService.findAll() } returns expectedUsers
@@ -104,8 +104,8 @@ class UserControllerTest @Autowired constructor(
     val expectedUser = User(
       id = userId,
       name = "test-user",
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userService.findById(userId) } returns expectedUser
 
