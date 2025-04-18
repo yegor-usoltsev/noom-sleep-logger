@@ -36,6 +36,11 @@ jobs:
       - name: Build project
         run: ./gradlew build
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Generate Docker metadata
         uses: docker/metadata-action@v5
         id: meta
