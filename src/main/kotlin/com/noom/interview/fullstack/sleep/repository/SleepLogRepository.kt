@@ -7,6 +7,7 @@ import com.noom.interview.fullstack.sleep.model.SleepLog
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.time.Instant
 import java.util.*
 
 @Repository
@@ -49,6 +50,31 @@ class SleepLogRepository(private val jooq: DSLContext) {
     return jooq
       .selectFrom(SLEEP_LOGS)
       .where(SLEEP_LOGS.USER_ID.eq(userId).and(SLEEP_LOGS.ID.eq(id)))
+      .fetchOne { it.toModel() }
+  }
+
+  fun updateById(userId: UUID, id: UUID, newSleepLog: CreateSleepLogRequest): SleepLog? {
+    return jooq
+      .update(SLEEP_LOGS)
+      .set(
+        SleepLogsRecord(
+          userId = userId,
+          bedTime = newSleepLog.bedTime,
+          wakeTime = newSleepLog.wakeTime,
+          mood = newSleepLog.mood,
+          updatedAt = Instant.now()
+        )
+      )
+      .where(SLEEP_LOGS.USER_ID.eq(userId).and(SLEEP_LOGS.ID.eq(id)))
+      .returning()
+      .fetchOne { it.toModel() }
+  }
+
+  fun deleteById(userId: UUID, id: UUID): SleepLog? {
+    return jooq
+      .delete(SLEEP_LOGS)
+      .where(SLEEP_LOGS.USER_ID.eq(userId).and(SLEEP_LOGS.ID.eq(id)))
+      .returning()
       .fetchOne { it.toModel() }
   }
 
