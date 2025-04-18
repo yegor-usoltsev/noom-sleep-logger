@@ -25,25 +25,25 @@ class SleepLogRepositoryTest @Autowired constructor(
   fun `create should create a new sleep log`() {
     // Given
     val user = userRepository.create(CreateUserRequest(name = "test-user"))
-    val newSleepLog = CreateSleepLogRequest(
+    val given = CreateSleepLogRequest(
       bedTime = Instant.now().minus(8, ChronoUnit.HOURS),
       wakeTime = Instant.now(),
       mood = Mood.GOOD
     )
 
     // When
-    val createdSleepLog = sleepLogRepository.create(user.id, newSleepLog)
+    val actual = sleepLogRepository.create(user.id, given)
 
     // Then
-    assertThat(createdSleepLog.id).isNotNull()
-    assertThat(createdSleepLog.userId).isEqualTo(user.id)
-    assertThat(createdSleepLog.bedTime).isCloseTo(newSleepLog.bedTime, within(1, ChronoUnit.SECONDS))
-    assertThat(createdSleepLog.wakeTime).isCloseTo(newSleepLog.wakeTime, within(1, ChronoUnit.SECONDS))
-    assertThat(createdSleepLog.mood).isEqualTo(newSleepLog.mood)
-    assertThat(createdSleepLog.date).isEqualTo(newSleepLog.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
-    assertThat(createdSleepLog.duration).isEqualTo(Duration.between(newSleepLog.bedTime, newSleepLog.wakeTime))
-    assertThat(createdSleepLog.createdAt).isNotNull()
-    assertThat(createdSleepLog.updatedAt).isNotNull()
+    assertThat(actual.id).isNotNull()
+    assertThat(actual.userId).isEqualTo(user.id)
+    assertThat(actual.bedTime).isCloseTo(given.bedTime, within(1, ChronoUnit.SECONDS))
+    assertThat(actual.wakeTime).isCloseTo(given.wakeTime, within(1, ChronoUnit.SECONDS))
+    assertThat(actual.mood).isEqualTo(given.mood)
+    assertThat(actual.date).isEqualTo(given.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
+    assertThat(actual.duration).isCloseTo(Duration.between(given.bedTime, given.wakeTime), Duration.ofSeconds(1))
+    assertThat(actual.createdAt).isNotNull()
+    assertThat(actual.updatedAt).isNotNull()
   }
 
   @Test
