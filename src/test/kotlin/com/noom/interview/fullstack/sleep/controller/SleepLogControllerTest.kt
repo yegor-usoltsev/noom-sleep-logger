@@ -14,9 +14,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.*
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -170,6 +168,99 @@ class SleepLogControllerTest @Autowired constructor(
 
     // When/Then
     mockMvc.get("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
+      .andExpect {
+        status { isNotFound() }
+      }
+  }
+
+  @Test
+  fun `updateById should return 200 with updated sleep log when exists`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val request = createSleepLogRequest()
+    val expectedSleepLog = request.toSleepLog(id = sleepLogId, userId = userId)
+    every { sleepLogService.updateById(userId, sleepLogId, request) } returns expectedSleepLog
+
+    // When/Then
+    mockMvc.put("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId) {
+      contentType = MediaType.APPLICATION_JSON
+      content = objectMapper.writeValueAsBytes(request)
+    }.andExpect {
+      status { isOk() }
+    }.andDo {
+      handle { result ->
+        val actualSleepLog = objectMapper.readValue<SleepLog>(result.response.contentAsByteArray)
+        assertThat(actualSleepLog).isEqualTo(expectedSleepLog)
+      }
+    }
+  }
+
+  @Test
+  fun `updateById should return 404 when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val request = createSleepLogRequest()
+    every { sleepLogService.updateById(userId, sleepLogId, request) } returns null
+
+    // When/Then
+    mockMvc.put("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId) {
+      contentType = MediaType.APPLICATION_JSON
+      content = objectMapper.writeValueAsBytes(request)
+    }.andExpect {
+      status { isNotFound() }
+    }
+  }
+
+  @Test
+  fun `updateById should return 422 when wakeTime is before bedTime`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val request = createSleepLogRequest(
+      bedTime = Instant.now(),
+      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+    )
+
+    // When/Then
+    mockMvc.put("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId) {
+      contentType = MediaType.APPLICATION_JSON
+      content = objectMapper.writeValueAsBytes(request)
+    }.andExpect {
+      status { isUnprocessableEntity() }
+    }
+  }
+
+  @Test
+  fun `deleteById should return 200 with deleted sleep log when exists`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns expectedSleepLog
+
+    // When/Then
+    mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
+      .andExpect {
+        status { isOk() }
+      }.andDo {
+        handle { result ->
+          val actualSleepLog = objectMapper.readValue<SleepLog>(result.response.contentAsByteArray)
+          assertThat(actualSleepLog).isEqualTo(expectedSleepLog)
+        }
+      }
+  }
+
+  @Test
+  fun `deleteById should return 404 when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val sleepLogId = UUID.randomUUID()
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns null
+
+    // When/Then
+    mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
       .andExpect {
         status { isNotFound() }
       }

@@ -27,4 +27,14 @@ class SleepLogService(private val sleepLogRepository: SleepLogRepository) {
     return sleepLogRepository.findById(userId, id)
   }
 
+  @Transactional
+  fun updateById(userId: UUID, id: UUID, newSleepLog: CreateSleepLogRequest): SleepLog? {
+    return sleepLogRepository.updateById(userId, id, newSleepLog)
+  }
+
+  @Transactional
+  fun deleteById(userId: UUID, id: UUID): SleepLog? {
+    return sleepLogRepository.deleteById(userId, id)
+  }
+
 }

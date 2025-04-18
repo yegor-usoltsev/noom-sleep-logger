@@ -2,6 +2,7 @@ package com.noom.interview.fullstack.sleep.repository
 
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.createUserRequest
+import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import org.assertj.core.api.Assertions.*
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
@@ -180,6 +181,108 @@ class SleepLogRepositoryTest @Autowired constructor(
 
     // Then
     assertThat(foundLog).isNull()
+  }
+
+  @Test
+  fun `updateById should update sleep log when exists`() {
+    // Given
+    val user = userRepository.create(createUserRequest())
+    val createdLog = sleepLogRepository.create(user.id, createSleepLogRequest())
+    val updateRequest = createSleepLogRequest(
+      bedTime = createdLog.bedTime.minus(1, ChronoUnit.HOURS),
+      wakeTime = createdLog.wakeTime.minus(1, ChronoUnit.HOURS),
+      mood = Mood.entries.filter { it != createdLog.mood }.random()
+    )
+
+    // When
+    val updatedLog = sleepLogRepository.updateById(user.id, createdLog.id, updateRequest)
+
+    // Then
+    assertThat(updatedLog).isNotNull()
+    assertThat(updatedLog!!.id).isEqualTo(createdLog.id)
+    assertThat(updatedLog.userId).isEqualTo(createdLog.userId)
+    assertThat(updatedLog.bedTime).isCloseTo(updateRequest.bedTime, within(1, ChronoUnit.SECONDS))
+    assertThat(updatedLog.wakeTime).isCloseTo(updateRequest.wakeTime, within(1, ChronoUnit.SECONDS))
+    assertThat(updatedLog.mood).isEqualTo(updateRequest.mood)
+    assertThat(updatedLog.date).isEqualTo(updateRequest.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
+    assertThat(updatedLog.duration).isCloseTo(
+      Duration.between(updateRequest.bedTime, updateRequest.wakeTime),
+      Duration.ofSeconds(1)
+    )
+    assertThat(updatedLog.createdAt).isEqualTo(createdLog.createdAt)
+    assertThat(updatedLog.updatedAt).isAfter(createdLog.updatedAt)
+  }
+
+  @Test
+  fun `updateById should return null when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val nonExistentId = UUID.randomUUID()
+    val updateRequest = createSleepLogRequest()
+
+    // When
+    val updatedLog = sleepLogRepository.updateById(userId, nonExistentId, updateRequest)
+
+    // Then
+    assertThat(updatedLog).isNull()
+  }
+
+  @Test
+  fun `updateById should return null when sleep log belongs to different user`() {
+    // Given
+    val user1 = userRepository.create(createUserRequest())
+    val user2 = userRepository.create(createUserRequest())
+    val createdLogForUser2 = sleepLogRepository.create(user2.id, createSleepLogRequest())
+    val updateRequest = createSleepLogRequest()
+
+    // When
+    val updatedLog = sleepLogRepository.updateById(user1.id, createdLogForUser2.id, updateRequest)
+
+    // Then
+    assertThat(updatedLog).isNull()
+  }
+
+  @Test
+  fun `deleteById should delete sleep log when exists`() {
+    // Given
+    val user = userRepository.create(createUserRequest())
+    val createdLog = sleepLogRepository.create(user.id, createSleepLogRequest())
+
+    // When
+    val deletedLog = sleepLogRepository.deleteById(user.id, createdLog.id)
+
+    // Then
+    assertThat(deletedLog).isNotNull()
+    assertThat(deletedLog).isEqualTo(createdLog)
+    assertThat(sleepLogRepository.findById(user.id, createdLog.id)).isNull()
+  }
+
+  @Test
+  fun `deleteById should return null when sleep log does not exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val nonExistentId = UUID.randomUUID()
+
+    // When
+    val deletedLog = sleepLogRepository.deleteById(userId, nonExistentId)
+
+    // Then
+    assertThat(deletedLog).isNull()
+  }
+
+  @Test
+  fun `deleteById should return null when sleep log belongs to different user`() {
+    // Given
+    val user1 = userRepository.create(createUserRequest())
+    val user2 = userRepository.create(createUserRequest())
+    val createdLogForUser2 = sleepLogRepository.create(user2.id, createSleepLogRequest())
+
+    // When
+    val deletedLog = sleepLogRepository.deleteById(user1.id, createdLogForUser2.id)
+
+    // Then
+    assertThat(deletedLog).isNull()
+    assertThat(sleepLogRepository.findById(user2.id, createdLogForUser2.id)).isNotNull()
   }
 
 }
