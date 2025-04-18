@@ -8,7 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
+import java.time.Instant
 import java.util.*
 
 class UserServiceTest {
@@ -23,8 +23,8 @@ class UserServiceTest {
     val expectedUser = User(
       id = UUID.randomUUID(),
       name = request.name,
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userRepository.create(request) } returns expectedUser
 
@@ -43,14 +43,14 @@ class UserServiceTest {
       User(
         id = UUID.randomUUID(),
         name = "user1",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       ),
       User(
         id = UUID.randomUUID(),
         name = "user2",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       )
     )
     every { userRepository.findAll() } returns expectedUsers
@@ -70,8 +70,8 @@ class UserServiceTest {
     val expectedUser = User(
       id = userId,
       name = "test-user",
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userRepository.findById(userId) } returns expectedUser
 

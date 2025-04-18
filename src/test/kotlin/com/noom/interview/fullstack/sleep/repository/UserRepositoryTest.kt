@@ -1,17 +1,20 @@
 package com.noom.interview.fullstack.sleep.repository
 
-import com.noom.interview.fullstack.sleep.IntegrationTest
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jooq.JooqTest
+import org.springframework.context.annotation.Import
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DuplicateKeyException
 import java.util.*
 
-class UserRepositoryTest @Autowired constructor(private val userRepository: UserRepository) : IntegrationTest() {
+@JooqTest
+@Import(UserRepository::class)
+class UserRepositoryTest @Autowired constructor(private val userRepository: UserRepository) {
 
   @Test
   fun `create should create a new user`() {
@@ -22,7 +25,6 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     val createdUser = userRepository.create(newUser)
 
     // Then
-    assertThat(createdUser).isNotNull()
     assertThat(createdUser.id).isNotNull()
     assertThat(createdUser.name).isEqualTo(newUser.name.trim().lowercase())
     assertThat(createdUser.createdAt).isNotNull()

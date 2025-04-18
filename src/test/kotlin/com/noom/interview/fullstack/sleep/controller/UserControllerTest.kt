@@ -3,7 +3,6 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.IntegrationTest
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
@@ -11,17 +10,19 @@ import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import java.time.LocalDateTime
+import java.time.Instant
 import java.util.*
 
+@WebMvcTest(UserController::class)
 class UserControllerTest @Autowired constructor(
   private val mockMvc: MockMvc,
   private val objectMapper: ObjectMapper
-) : IntegrationTest() {
+) {
 
   @MockkBean
   private lateinit var userService: UserService
@@ -33,8 +34,8 @@ class UserControllerTest @Autowired constructor(
     val expectedUser = User(
       id = UUID.randomUUID(),
       name = request.name,
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userService.create(request) } returns expectedUser
 
@@ -73,14 +74,14 @@ class UserControllerTest @Autowired constructor(
       User(
         id = UUID.randomUUID(),
         name = "user1",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       ),
       User(
         id = UUID.randomUUID(),
         name = "user2",
-        createdAt = LocalDateTime.now(),
-        updatedAt = LocalDateTime.now()
+        createdAt = Instant.now(),
+        updatedAt = Instant.now()
       )
     )
     every { userService.findAll() } returns expectedUsers
@@ -104,13 +105,13 @@ class UserControllerTest @Autowired constructor(
     val expectedUser = User(
       id = userId,
       name = "test-user",
-      createdAt = LocalDateTime.now(),
-      updatedAt = LocalDateTime.now()
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
     )
     every { userService.findById(userId) } returns expectedUser
 
     // When/Then
-    mockMvc.get("/api/v1/users/{id}", userId)
+    mockMvc.get("/api/v1/users/{user-id}", userId)
       .andExpect {
         status { isOk() }
       }.andDo {
@@ -128,7 +129,7 @@ class UserControllerTest @Autowired constructor(
     every { userService.findById(userId) } returns null
 
     // When/Then
-    mockMvc.get("/api/v1/users/{id}", userId)
+    mockMvc.get("/api/v1/users/{user-id}", userId)
       .andExpect {
         status { isNotFound() }
       }

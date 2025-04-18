@@ -77,6 +77,12 @@ jooq {
         includes = ".*"
         excludes = "flyway_schema_history.*"
         isOutputSchemaToDefault = true
+        forcedTypes {
+          forcedType {
+            name = "instant"
+            includeTypes = "timestamp.*"
+          }
+        }
       }
       generate {
         isDefaultCatalog = false
