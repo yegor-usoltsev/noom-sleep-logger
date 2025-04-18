@@ -46,4 +46,24 @@ class SleepLogController(private val sleepLogService: SleepLogService) {
     return ResponseEntity(sleepLog, HttpStatus.OK)
   }
 
+  @PutMapping("/{sleep-log-id}")
+  fun updateById(
+    @PathVariable(value = "user-id") userId: UUID,
+    @PathVariable(value = "sleep-log-id") id: UUID,
+    @Valid @RequestBody newSleepLog: CreateSleepLogRequest
+  ): ResponseEntity<SleepLog> {
+    if (newSleepLog.bedTime >= newSleepLog.wakeTime) throw UnprocessableEntityException()
+    val sleepLog = sleepLogService.updateById(userId, id, newSleepLog) ?: throw NotFoundException()
+    return ResponseEntity(sleepLog, HttpStatus.OK)
+  }
+
+  @DeleteMapping("/{sleep-log-id}")
+  fun deleteById(
+    @PathVariable(value = "user-id") userId: UUID,
+    @PathVariable(value = "sleep-log-id") id: UUID
+  ): ResponseEntity<SleepLog> {
+    val sleepLog = sleepLogService.deleteById(userId, id) ?: throw NotFoundException()
+    return ResponseEntity(sleepLog, HttpStatus.OK)
+  }
+
 }
