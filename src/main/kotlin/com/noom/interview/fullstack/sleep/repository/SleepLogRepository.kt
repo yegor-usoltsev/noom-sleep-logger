@@ -32,6 +32,7 @@ class SleepLogRepository(private val jooq: DSLContext) {
     return jooq
       .selectFrom(SLEEP_LOGS)
       .where(SLEEP_LOGS.USER_ID.eq(userId))
+      .orderBy(SLEEP_LOGS.DATE.desc())
       .fetch { it.toModel() }
   }
 
