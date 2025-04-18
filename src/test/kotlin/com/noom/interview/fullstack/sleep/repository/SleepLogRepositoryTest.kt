@@ -1,6 +1,5 @@
 package com.noom.interview.fullstack.sleep.repository
 
-import com.noom.interview.fullstack.sleep.IntegrationTest
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
@@ -8,6 +7,8 @@ import org.assertj.core.api.Assertions.*
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jooq.JooqTest
+import org.springframework.context.annotation.Import
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DuplicateKeyException
 import java.time.Duration
@@ -16,10 +17,12 @@ import java.time.ZoneOffset
 import java.time.temporal.ChronoUnit
 import java.util.*
 
+@JooqTest
+@Import(SleepLogRepository::class, UserRepository::class)
 class SleepLogRepositoryTest @Autowired constructor(
   private val sleepLogRepository: SleepLogRepository,
   private val userRepository: UserRepository
-) : IntegrationTest() {
+) {
 
   @Test
   fun `create should create a new sleep log`() {

@@ -3,7 +3,6 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.IntegrationTest
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
@@ -11,6 +10,7 @@ import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
@@ -18,10 +18,11 @@ import org.springframework.test.web.servlet.post
 import java.time.Instant
 import java.util.*
 
+@WebMvcTest(UserController::class)
 class UserControllerTest @Autowired constructor(
   private val mockMvc: MockMvc,
   private val objectMapper: ObjectMapper
-) : IntegrationTest() {
+) {
 
   @MockkBean
   private lateinit var userService: UserService
