@@ -334,9 +334,10 @@ class SleepLogRepositoryTest @Autowired constructor(
   fun `calculateSleepStats should return null when no sleep logs exist`() {
     // Given
     val userId = UUID.randomUUID()
+    val daysBack = 30
 
     // When
-    val stats = sleepLogRepository.calculateSleepStats(userId)
+    val stats = sleepLogRepository.calculateSleepStats(userId, daysBack)
 
     // Then
     assertThat(stats).isNull()

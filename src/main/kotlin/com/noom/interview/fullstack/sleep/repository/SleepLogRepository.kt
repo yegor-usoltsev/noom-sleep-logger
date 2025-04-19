@@ -86,7 +86,7 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .fetchOne { it.toModel() }
   }
 
-  fun calculateSleepStats(userId: UUID, daysBack: Int = 30): SleepStats? {
+  fun calculateSleepStats(userId: UUID, daysBack: Int): SleepStats? {
     val toDate = currentLocalDate()
     val fromDate = toDate.minus(daysBack)
 
