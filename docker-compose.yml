@@ -2,6 +2,7 @@
 services:
   app:
     build: .
+    image: ghcr.io/yegor-usoltsev/noom-sleep-logger:latest
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sleep
       SPRING_DATASOURCE_USERNAME: sleep

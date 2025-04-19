@@ -63,7 +63,7 @@ jobs:
           images: ghcr.io/yegor-usoltsev/noom-sleep-logger
           tags: |
             type=sha
-            type=edge
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build Docker image
         uses: docker/build-push-action@v6
