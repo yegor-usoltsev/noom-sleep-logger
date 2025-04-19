@@ -3,6 +3,7 @@ package com.noom.interview.fullstack.sleep.repository
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.createUserRequest
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
+import com.noom.interview.fullstack.sleep.model.MoodFrequencies
 import org.assertj.core.api.Assertions.*
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
@@ -11,9 +12,7 @@ import org.springframework.boot.test.autoconfigure.jooq.JooqTest
 import org.springframework.context.annotation.Import
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DuplicateKeyException
-import java.time.Duration
-import java.time.Instant
-import java.time.ZoneOffset
+import java.time.*
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -283,6 +282,64 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Then
     assertThat(deletedLog).isNull()
     assertThat(sleepLogRepository.findById(user2.id, createdLogForUser2.id)).isNotNull()
+  }
+
+  @Test
+  fun `calculateSleepStats should return sleep stats for a user`() {
+    // Given
+    val user = userRepository.create(createUserRequest())
+    val nowDate = LocalDate.now()
+    val now = LocalDate.now().atStartOfDay().plusHours(7).plusMinutes(30).toInstant(ZoneOffset.UTC) // 07:30
+    val daysBack = 30
+    sleepLogRepository.create(
+      user.id,
+      createSleepLogRequest(
+        bedTime = now.minus(24 + 8, ChronoUnit.HOURS), // 23:30
+        wakeTime = now.minus(24, ChronoUnit.HOURS), // 07:30
+        mood = Mood.GOOD
+      )
+    )
+    sleepLogRepository.create(
+      user.id,
+      createSleepLogRequest(
+        bedTime = now.minus(48 + 7, ChronoUnit.HOURS), // 00:30
+        wakeTime = now.minus(48 - 1, ChronoUnit.HOURS), // 08:30
+        mood = Mood.OK
+      )
+    )
+    sleepLogRepository.create(
+      user.id,
+      createSleepLogRequest(
+        bedTime = now.minus(72 + 6, ChronoUnit.HOURS), // 01:30
+        wakeTime = now.minus(72 - 2, ChronoUnit.HOURS), // 09:30
+        mood = Mood.BAD
+      )
+    )
+
+    // When
+    val stats = sleepLogRepository.calculateSleepStats(user.id, daysBack)
+
+    // Then
+    assertThat(stats).isNotNull()
+    assertThat(stats!!.userId).isEqualTo(user.id)
+    assertThat(stats.fromDate).isEqualTo(nowDate.minusDays(daysBack.toLong()))
+    assertThat(stats.toDate).isEqualTo(nowDate)
+    assertThat(stats.averageBedTime).isCloseTo(LocalTime.of(0, 30), within(1, ChronoUnit.SECONDS))
+    assertThat(stats.averageWakeTime).isCloseTo(LocalTime.of(8, 30), within(1, ChronoUnit.SECONDS))
+    assertThat(stats.averageDuration).isCloseTo(Duration.ofHours(8), Duration.ofMinutes(1))
+    assertThat(stats.moodFrequencies).isEqualTo(MoodFrequencies(bad = 1, ok = 1, good = 1))
+  }
+
+  @Test
+  fun `calculateSleepStats should return null when no sleep logs exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+
+    // When
+    val stats = sleepLogRepository.calculateSleepStats(userId)
+
+    // Then
+    assertThat(stats).isNull()
   }
 
 }
