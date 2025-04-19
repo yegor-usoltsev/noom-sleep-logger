@@ -177,7 +177,27 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/api/v1/users"
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users?page=1&page-size=20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page-size",
+									"value": "20"
+								}
+							]
+						}
 					},
 					"response": [
 						{
@@ -185,7 +205,27 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{BASE_URL}}/api/v1/users"
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/users?page=1&page-size=20",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "page-size",
+											"value": "20"
+										}
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -201,7 +241,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 17 Apr 2025 20:38:58 GMT"
+									"value": "Sat, 19 Apr 2025 16:28:00 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -213,7 +253,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n        \"name\": \"yegor\",\n        \"createdAt\": \"2025-04-18T15:14:01.072053Z\",\n        \"updatedAt\": \"2025-04-18T15:14:01.072053Z\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"name\": \"yegor\",\n        \"createdAt\": \"2025-04-19T16:25:01.243912Z\",\n        \"updatedAt\": \"2025-04-19T16:25:01.243912Z\"\n    }\n]"
 						}
 					]
 				},
@@ -525,7 +565,29 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs"
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs?page=1&page-size=20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{USER_ID}}",
+								"sleep-logs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page-size",
+									"value": "20"
+								}
+							]
+						}
 					},
 					"response": [
 						{
@@ -533,7 +595,29 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs"
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs?page=1&page-size=20",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{USER_ID}}",
+										"sleep-logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "page-size",
+											"value": "20"
+										}
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -549,7 +633,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Fri, 18 Apr 2025 14:11:24 GMT"
+									"value": "Sat, 19 Apr 2025 16:29:26 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -561,7 +645,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-17T23:00:00Z\",\n        \"wakeTime\": \"2025-04-18T07:00:00Z\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n        \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n    },\n    {\n        \"id\": \"52ccbd70-be2a-41e1-bac3-b9d4a808eb46\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-16T23:00:00Z\",\n        \"wakeTime\": \"2025-04-17T06:00:00Z\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-18T14:10:36.399616Z\",\n        \"updatedAt\": \"2025-04-18T14:10:36.399616Z\"\n    },\n    {\n        \"id\": \"d5cec2b9-ffe9-4674-96d7-5781fcd01753\",\n        \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n        \"bedTime\": \"2025-04-16T01:00:00Z\",\n        \"wakeTime\": \"2025-04-16T07:00:00Z\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-18T14:11:05.511279Z\",\n        \"updatedAt\": \"2025-04-18T14:11:05.511279Z\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"dbad6f7f-17f2-4b04-b631-3ba5ed1d825d\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-17T23:00:00Z\",\n        \"wakeTime\": \"2025-04-18T07:00:00Z\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-19T16:25:45.574367Z\",\n        \"updatedAt\": \"2025-04-19T16:25:45.574367Z\"\n    },\n    {\n        \"id\": \"78d6d1ff-b644-48f6-b603-ff598bde8aaf\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-17T00:00:00Z\",\n        \"wakeTime\": \"2025-04-17T07:00:00Z\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-19T16:26:14.539383Z\",\n        \"updatedAt\": \"2025-04-19T16:26:14.539383Z\"\n    },\n    {\n        \"id\": \"3e5de2ee-fb4d-4158-a6e4-7d643b65bb8f\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-16T01:00:00Z\",\n        \"wakeTime\": \"2025-04-16T07:00:00Z\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-19T16:26:28.809645Z\",\n        \"updatedAt\": \"2025-04-19T16:26:28.809645Z\"\n    }\n]"
 						}
 					]
 				},
@@ -1081,7 +1165,26 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats"
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats?days-back=30",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{USER_ID}}",
+								"sleep-logs",
+								"stats"
+							],
+							"query": [
+								{
+									"key": "days-back",
+									"value": "30"
+								}
+							]
+						}
 					},
 					"response": [
 						{
@@ -1089,7 +1192,26 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats"
+								"url": {
+									"raw": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats?days-back=30",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{USER_ID}}",
+										"sleep-logs",
+										"stats"
+									],
+									"query": [
+										{
+											"key": "days-back",
+											"value": "30"
+										}
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,

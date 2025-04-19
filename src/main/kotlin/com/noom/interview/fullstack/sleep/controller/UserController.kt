@@ -24,7 +24,7 @@ class UserController(private val userService: UserService) {
   @GetMapping
   fun findAll(
     @RequestParam(value = "page", required = false, defaultValue = "1") page: Int,
-    @RequestParam(value = "pageSize", required = false, defaultValue = "20") pageSize: Int
+    @RequestParam(value = "page-size", required = false, defaultValue = "20") pageSize: Int
   ): ResponseEntity<List<User>> {
     val pagination = Pagination.fromPageAndSize(page, pageSize)
     val users = userService.findAll(pagination)
