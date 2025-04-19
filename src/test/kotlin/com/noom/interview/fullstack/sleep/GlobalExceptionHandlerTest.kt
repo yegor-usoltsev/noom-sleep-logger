@@ -29,6 +29,13 @@ class GlobalExceptionHandlerTest {
   }
 
   @Test
+  fun `should return 400 Bad Request for IllegalArgumentException`() {
+    val exception = IllegalArgumentException("Page size must be positive")
+    val response = handler.handleThrowable(exception, request)
+    assertThat(response?.statusCode).isEqualTo(BAD_REQUEST)
+  }
+
+  @Test
   fun `should return 500 Internal Server Error for generic exception`() {
     val exception = Exception("Generic error")
     val response = handler.handleThrowable(exception, request)

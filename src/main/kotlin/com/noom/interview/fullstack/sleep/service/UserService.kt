@@ -1,6 +1,7 @@
 package com.noom.interview.fullstack.sleep.service
 
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -15,8 +16,8 @@ class UserService(private val userRepository: UserRepository) {
     return userRepository.create(newUser)
   }
 
-  fun findAll(): List<User> {
-    return userRepository.findAll()
+  fun findAll(pagination: Pagination? = null): List<User> {
+    return userRepository.findAll(pagination)
   }
 
   fun findById(id: UUID): User? {

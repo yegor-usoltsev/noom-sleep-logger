@@ -19,6 +19,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     val statusCode = when (ex) {
       is DuplicateKeyException -> CONFLICT
       is DataIntegrityViolationException -> BAD_REQUEST
+      is IllegalArgumentException -> BAD_REQUEST
       else -> INTERNAL_SERVER_ERROR
     }
     val body = ProblemDetail.forStatusAndDetail(statusCode, ex.message)

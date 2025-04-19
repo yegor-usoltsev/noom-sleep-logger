@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
 import com.noom.interview.fullstack.sleep.createUser
 import com.noom.interview.fullstack.sleep.createUserRequest
+import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
 import com.noom.interview.fullstack.sleep.toUser
@@ -70,18 +71,20 @@ class UserControllerTest @Autowired constructor(
       createUser(),
       createUser()
     )
-    every { userService.findAll() } returns expectedUsers
+    every { userService.findAll(Pagination.fromPageAndSize(1, 2)) } returns expectedUsers
 
     // When/Then
-    mockMvc.get("/api/v1/users")
-      .andExpect {
-        status { isOk() }
-      }.andDo {
-        handle { result ->
-          val actualUsers = objectMapper.readValue<List<User>>(result.response.contentAsByteArray)
-          assertThat(actualUsers).isEqualTo(expectedUsers)
-        }
+    mockMvc.get("/api/v1/users") {
+      queryParam("page", "1")
+      queryParam("pageSize", "2")
+    }.andExpect {
+      status { isOk() }
+    }.andDo {
+      handle { result ->
+        val actualUsers = objectMapper.readValue<List<User>>(result.response.contentAsByteArray)
+        assertThat(actualUsers).isEqualTo(expectedUsers)
       }
+    }
   }
 
   @Test

@@ -1,12 +1,10 @@
 package com.noom.interview.fullstack.sleep.repository
 
+import com.noom.interview.fullstack.sleep.applyPagination
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.jooq.tables.SleepLogs.Companion.SLEEP_LOGS
 import com.noom.interview.fullstack.sleep.jooq.tables.records.SleepLogsRecord
-import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
-import com.noom.interview.fullstack.sleep.model.MoodFrequencies
-import com.noom.interview.fullstack.sleep.model.SleepLog
-import com.noom.interview.fullstack.sleep.model.SleepStats
+import com.noom.interview.fullstack.sleep.model.*
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.*
 import org.jooq.impl.SQLDataType.*
@@ -34,11 +32,12 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .fetchSingle { it.toModel() }
   }
 
-  fun findAll(userId: UUID): List<SleepLog> {
+  fun findAll(userId: UUID, pagination: Pagination? = null): List<SleepLog> {
     return jooq
       .selectFrom(SLEEP_LOGS)
       .where(SLEEP_LOGS.USER_ID.eq(userId))
       .orderBy(SLEEP_LOGS.DATE.desc())
+      .applyPagination(pagination)
       .fetch { it.toModel() }
   }
 

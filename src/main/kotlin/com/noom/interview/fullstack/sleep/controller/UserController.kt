@@ -2,6 +2,7 @@ package com.noom.interview.fullstack.sleep.controller
 
 import com.noom.interview.fullstack.sleep.NotFoundException
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
 import jakarta.validation.Valid
@@ -21,8 +22,12 @@ class UserController(private val userService: UserService) {
   }
 
   @GetMapping
-  fun findAll(): ResponseEntity<List<User>> {
-    val users = userService.findAll()
+  fun findAll(
+    @RequestParam(value = "page", required = false, defaultValue = "1") page: Int,
+    @RequestParam(value = "pageSize", required = false, defaultValue = "20") pageSize: Int
+  ): ResponseEntity<List<User>> {
+    val pagination = Pagination.fromPageAndSize(page, pageSize)
+    val users = userService.findAll(pagination)
     return ResponseEntity(users, HttpStatus.OK)
   }
 
