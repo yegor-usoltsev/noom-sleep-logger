@@ -1,14 +1,8 @@
 package com.noom.interview.fullstack.sleep
 
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
-import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
-import com.noom.interview.fullstack.sleep.model.CreateUserRequest
-import com.noom.interview.fullstack.sleep.model.SleepLog
-import com.noom.interview.fullstack.sleep.model.User
-import java.time.Duration
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
+import com.noom.interview.fullstack.sleep.model.*
+import java.time.*
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -90,4 +84,22 @@ fun CreateSleepLogRequest.toSleepLog(
   duration = duration,
   createdAt = createdAt,
   updatedAt = updatedAt
+)
+
+fun createSleepStats(
+  userId: UUID = UUID.randomUUID(),
+  fromDate: LocalDate = LocalDate.now().minusDays(30),
+  toDate: LocalDate = LocalDate.now(),
+  averageBedTime: LocalTime = LocalTime.of(0, 30),
+  averageWakeTime: LocalTime = LocalTime.of(8, 30),
+  averageDuration: Duration = Duration.ofHours(8),
+  moodFrequencies: MoodFrequencies = MoodFrequencies(bad = 1, ok = 2, good = 3)
+): SleepStats = SleepStats(
+  userId = userId,
+  fromDate = fromDate,
+  toDate = toDate,
+  averageBedTime = averageBedTime,
+  averageWakeTime = averageWakeTime,
+  averageDuration = averageDuration,
+  moodFrequencies = moodFrequencies
 )

@@ -2,6 +2,7 @@ package com.noom.interview.fullstack.sleep.service
 
 import com.noom.interview.fullstack.sleep.createSleepLog
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
+import com.noom.interview.fullstack.sleep.createSleepStats
 import com.noom.interview.fullstack.sleep.repository.SleepLogRepository
 import com.noom.interview.fullstack.sleep.toSleepLog
 import io.mockk.every
@@ -9,6 +10,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 import java.util.*
 
 class SleepLogServiceTest {
@@ -112,6 +114,25 @@ class SleepLogServiceTest {
     // Then
     assertThat(result).isEqualTo(expectedSleepLog)
     verify(exactly = 1) { sleepLogRepository.deleteById(userId, sleepLogId) }
+  }
+
+  @Test
+  fun calculateSleepStats() {
+    // Given
+    val userId = UUID.randomUUID()
+    val daysBack = 30
+    val expectedStats = createSleepStats(
+      userId = userId,
+      fromDate = LocalDate.now().minusDays(daysBack.toLong())
+    )
+    every { sleepLogRepository.calculateSleepStats(userId, daysBack) } returns expectedStats
+
+    // When
+    val result = sleepLogService.calculateSleepStats(userId, daysBack)
+
+    // Then
+    assertThat(result).isEqualTo(expectedStats)
+    verify(exactly = 1) { sleepLogRepository.calculateSleepStats(userId, daysBack) }
   }
 
 }
