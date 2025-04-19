@@ -102,7 +102,7 @@ class SleepLogControllerTest @Autowired constructor(
     // When/Then
     mockMvc.get("/api/v1/users/{user-id}/sleep-logs", userId) {
       queryParam("page", "1")
-      queryParam("pageSize", "2")
+      queryParam("page-size", "2")
     }.andExpect {
       status { isOk() }
     }.andDo {

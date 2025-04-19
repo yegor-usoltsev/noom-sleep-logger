@@ -31,7 +31,7 @@ class SleepLogController(private val sleepLogService: SleepLogService) {
   fun findAll(
     @PathVariable(value = "user-id") userId: UUID,
     @RequestParam(value = "page", required = false, defaultValue = "1") page: Int,
-    @RequestParam(value = "pageSize", required = false, defaultValue = "20") pageSize: Int
+    @RequestParam(value = "page-size", required = false, defaultValue = "20") pageSize: Int
   ): ResponseEntity<List<SleepLog>> {
     val pagination = Pagination.fromPageAndSize(page, pageSize)
     val sleepLogs = sleepLogService.findAll(userId, pagination)
