@@ -6,6 +6,7 @@ import com.ninjasquad.springmockk.MockkBean
 import com.noom.interview.fullstack.sleep.createSleepLog
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.createSleepStats
+import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.SleepLog
 import com.noom.interview.fullstack.sleep.model.SleepStats
 import com.noom.interview.fullstack.sleep.service.SleepLogService
@@ -96,18 +97,20 @@ class SleepLogControllerTest @Autowired constructor(
       createSleepLog(userId = userId),
       createSleepLog(userId = userId)
     )
-    every { sleepLogService.findAll(userId) } returns expectedSleepLogs
+    every { sleepLogService.findAll(userId, Pagination.fromPageAndSize(1, 2)) } returns expectedSleepLogs
 
     // When/Then
-    mockMvc.get("/api/v1/users/{user-id}/sleep-logs", userId)
-      .andExpect {
-        status { isOk() }
-      }.andDo {
-        handle { result ->
-          val actualSleepLogs = objectMapper.readValue<List<SleepLog>>(result.response.contentAsByteArray)
-          assertThat(actualSleepLogs).isEqualTo(expectedSleepLogs)
-        }
+    mockMvc.get("/api/v1/users/{user-id}/sleep-logs", userId) {
+      queryParam("page", "1")
+      queryParam("pageSize", "2")
+    }.andExpect {
+      status { isOk() }
+    }.andDo {
+      handle { result ->
+        val actualSleepLogs = objectMapper.readValue<List<SleepLog>>(result.response.contentAsByteArray)
+        assertThat(actualSleepLogs).isEqualTo(expectedSleepLogs)
       }
+    }
   }
 
   @Test

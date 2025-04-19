@@ -4,6 +4,7 @@ import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.createUserRequest
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.model.MoodFrequencies
+import com.noom.interview.fullstack.sleep.model.Pagination
 import org.assertj.core.api.Assertions.*
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable
 import org.junit.jupiter.api.Test
@@ -91,6 +92,13 @@ class SleepLogRepositoryTest @Autowired constructor(
   fun `findAll should return all sleep logs for a user in order`() {
     // Given
     val user = userRepository.create(createUserRequest())
+    sleepLogRepository.create(
+      user.id,
+      createSleepLogRequest(
+        bedTime = Instant.now().minus(48 + 8, ChronoUnit.HOURS),
+        wakeTime = Instant.now().minus(48, ChronoUnit.HOURS)
+      )
+    )
     val sleepLog1 = sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
@@ -99,9 +107,10 @@ class SleepLogRepositoryTest @Autowired constructor(
       )
     )
     val sleepLog2 = sleepLogRepository.create(user.id, createSleepLogRequest())
+    val pagination = Pagination(limit = 2, offset = 0)
 
     // When
-    val sleepLogs = sleepLogRepository.findAll(user.id)
+    val sleepLogs = sleepLogRepository.findAll(user.id, pagination)
 
     // Then
     assertThat(sleepLogs).hasSize(2)
