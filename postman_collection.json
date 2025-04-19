@@ -87,6 +87,46 @@
 							"body": "{\n    \"id\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"name\": \"yegor\",\n    \"createdAt\": \"2025-04-18T15:14:01.072053Z\",\n    \"updatedAt\": \"2025-04-18T15:14:01.072053Z\"\n}"
 						},
 						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \" !@# \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 17 Apr 2025 20:41:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users\"\n}"
+						},
+						{
 							"name": "409 Conflict",
 							"originalRequest": {
 								"method": "POST",
@@ -129,46 +169,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [insert into \\\"users\\\" (\\\"name\\\") values (?) returning \\\"users\\\".\\\"id\\\", \\\"users\\\".\\\"name\\\", \\\"users\\\".\\\"created_at\\\", \\\"users\\\".\\\"updated_at\\\"]; ERROR: duplicate key value violates unique constraint \\\"users_name_key\\\"\\n  Detail: Key (name)=(yegor) already exists.\",\n    \"instance\": \"/api/v1/users\"\n}"
-						},
-						{
-							"name": "400 Bad Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \" !@# \"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{BASE_URL}}/api/v1/users"
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/problem+json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 17 Apr 2025 20:41:38 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users\"\n}"
 						}
 					]
 				},
@@ -619,6 +619,41 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n    \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n    \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/latest"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 10:50:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/00000000-0000-0000-0000-000000000000/sleep-logs/latest\"\n}"
 						}
 					]
 				},
@@ -816,50 +851,6 @@
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/ff57e9a2-745f-42b9-9b63-87cb7c32df97\"\n}"
 						},
 						{
-							"name": "409 Conflict",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
-							},
-							"status": "Conflict",
-							"code": 409,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/problem+json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 18 Apr 2025 16:12:55 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [update \\\"sleep_logs\\\" set \\\"user_id\\\" = cast(? as uuid), \\\"bed_time\\\" = cast(? as timestamp with time zone), \\\"wake_time\\\" = cast(? as timestamp with time zone), \\\"mood\\\" = cast(? as \\\"mood\\\"), \\\"updated_at\\\" = cast(? as timestamp with time zone) where (\\\"sleep_logs\\\".\\\"user_id\\\" = cast(? as uuid) and \\\"sleep_logs\\\".\\\"id\\\" = cast(? as uuid)) returning \\\"sleep_logs\\\".\\\"id\\\", \\\"sleep_logs\\\".\\\"user_id\\\", \\\"sleep_logs\\\".\\\"bed_time\\\", \\\"sleep_logs\\\".\\\"wake_time\\\", \\\"sleep_logs\\\".\\\"mood\\\", \\\"sleep_logs\\\".\\\"date\\\", \\\"sleep_logs\\\".\\\"duration\\\", \\\"sleep_logs\\\".\\\"created_at\\\", \\\"sleep_logs\\\".\\\"updated_at\\\"]; ERROR: duplicate key value violates unique constraint \\\"sleep_logs_user_id_date_key\\\"\\n  Detail: Key (user_id, date)=(72da7491-301e-4687-b662-450635166b94, 2025-04-18) already exists.\",\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/6f7ce677-d56a-4144-9044-838d3ae7686a\"\n}"
-						},
-						{
 							"name": "404 Not Found",
 							"originalRequest": {
 								"method": "PUT",
@@ -902,6 +893,50 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						{
+							"name": "409 Conflict",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 16:12:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [update \\\"sleep_logs\\\" set \\\"user_id\\\" = cast(? as uuid), \\\"bed_time\\\" = cast(? as timestamp with time zone), \\\"wake_time\\\" = cast(? as timestamp with time zone), \\\"mood\\\" = cast(? as \\\"mood\\\"), \\\"updated_at\\\" = cast(? as timestamp with time zone) where (\\\"sleep_logs\\\".\\\"user_id\\\" = cast(? as uuid) and \\\"sleep_logs\\\".\\\"id\\\" = cast(? as uuid)) returning \\\"sleep_logs\\\".\\\"id\\\", \\\"sleep_logs\\\".\\\"user_id\\\", \\\"sleep_logs\\\".\\\"bed_time\\\", \\\"sleep_logs\\\".\\\"wake_time\\\", \\\"sleep_logs\\\".\\\"mood\\\", \\\"sleep_logs\\\".\\\"date\\\", \\\"sleep_logs\\\".\\\"duration\\\", \\\"sleep_logs\\\".\\\"created_at\\\", \\\"sleep_logs\\\".\\\"updated_at\\\"]; ERROR: duplicate key value violates unique constraint \\\"sleep_logs_user_id_date_key\\\"\\n  Detail: Key (user_id, date)=(72da7491-301e-4687-b662-450635166b94, 2025-04-18) already exists.\",\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/6f7ce677-d56a-4144-9044-838d3ae7686a\"\n}"
 						},
 						{
 							"name": "422 Unprocessable Entity",
@@ -1026,6 +1061,98 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
+				},
+				{
+					"name": "calculateSleepStats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 11:00:52 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"userId\": \"5c7aac17-e9e9-4c20-9ddd-85627a7e9c72\",\n    \"fromDate\": \"2025-03-20\",\n    \"toDate\": \"2025-04-19\",\n    \"averageBedTime\": \"23:55:00\",\n    \"averageWakeTime\": \"07:45:00\",\n    \"averageDuration\": \"PT7H50M\",\n    \"moodFrequencies\": {\n        \"bad\": 1,\n        \"ok\": 2,\n        \"good\": 3\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/stats"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 11:01:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/00000000-0000-0000-0000-000000000000/sleep-logs/stats\"\n}"
 						}
 					]
 				}
