@@ -44,6 +44,12 @@ docker compose up -d
    docker compose --profile app up -d --build
    ```
 
+   Alternatively, you can use the [pre-built Docker image](https://github.com/users/yegor-usoltsev/packages/container/package/noom-sleep-logger):
+
+   ```bash
+   docker pull ghcr.io/yegor-usoltsev/noom-sleep-logger:latest
+   ```
+
    The application will be available at `http://localhost:8080`.
 
 ## API Documentation
