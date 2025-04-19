@@ -4,6 +4,7 @@ import com.noom.interview.fullstack.sleep.NotFoundException
 import com.noom.interview.fullstack.sleep.UnprocessableEntityException
 import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
 import com.noom.interview.fullstack.sleep.model.SleepLog
+import com.noom.interview.fullstack.sleep.model.SleepStats
 import com.noom.interview.fullstack.sleep.service.SleepLogService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -64,6 +65,15 @@ class SleepLogController(private val sleepLogService: SleepLogService) {
   ): ResponseEntity<SleepLog> {
     val sleepLog = sleepLogService.deleteById(userId, id) ?: throw NotFoundException()
     return ResponseEntity(sleepLog, HttpStatus.OK)
+  }
+
+  @GetMapping("/stats")
+  fun calculateSleepStats(
+    @PathVariable(value = "user-id") userId: UUID,
+    @RequestParam(value = "days-back", required = false, defaultValue = "30") daysBack: Int
+  ): ResponseEntity<SleepStats> {
+    val stats = sleepLogService.calculateSleepStats(userId, daysBack) ?: throw NotFoundException()
+    return ResponseEntity(stats, HttpStatus.OK)
   }
 
 }

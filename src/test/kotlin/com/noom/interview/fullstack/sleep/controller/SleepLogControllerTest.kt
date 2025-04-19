@@ -5,7 +5,9 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
 import com.noom.interview.fullstack.sleep.createSleepLog
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
+import com.noom.interview.fullstack.sleep.createSleepStats
 import com.noom.interview.fullstack.sleep.model.SleepLog
+import com.noom.interview.fullstack.sleep.model.SleepStats
 import com.noom.interview.fullstack.sleep.service.SleepLogService
 import com.noom.interview.fullstack.sleep.toSleepLog
 import io.mockk.every
@@ -16,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
 import java.time.Instant
+import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -261,6 +264,43 @@ class SleepLogControllerTest @Autowired constructor(
 
     // When/Then
     mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
+      .andExpect {
+        status { isNotFound() }
+      }
+  }
+
+  @Test
+  fun `calculateSleepStats should return 200 with sleep stats when exists`() {
+    // Given
+    val userId = UUID.randomUUID()
+    val daysBack = 30
+    val expectedStats = createSleepStats(
+      userId = userId,
+      fromDate = LocalDate.now().minusDays(daysBack.toLong())
+    )
+    every { sleepLogService.calculateSleepStats(userId, daysBack) } returns expectedStats
+
+    // When/Then
+    mockMvc.get("/api/v1/users/{user-id}/sleep-logs/stats", userId) {
+      queryParam("days-back", "$daysBack")
+    }.andExpect {
+      status { isOk() }
+    }.andDo {
+      handle { result ->
+        val actualStats = objectMapper.readValue<SleepStats>(result.response.contentAsByteArray)
+        assertThat(actualStats).isEqualTo(expectedStats)
+      }
+    }
+  }
+
+  @Test
+  fun `calculateSleepStats should return 404 when no sleep logs exist`() {
+    // Given
+    val userId = UUID.randomUUID()
+    every { sleepLogService.calculateSleepStats(userId, any()) } returns null
+
+    // When/Then
+    mockMvc.get("/api/v1/users/{user-id}/sleep-logs/stats", userId)
       .andExpect {
         status { isNotFound() }
       }
