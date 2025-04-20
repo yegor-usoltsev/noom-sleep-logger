@@ -69,7 +69,7 @@ class UserControllerTest @Autowired constructor(
     val expectedUsers = listOf(
       createUser(timeZone = LAX),
       createUser(timeZone = WAW)
-    )
+    ).toPage()
     every { userService.findAll(Pagination.fromPageAndSize(1, 2)) } returns expectedUsers
 
     // When/Then
@@ -78,6 +78,7 @@ class UserControllerTest @Autowired constructor(
       queryParam("page-size", "2")
     }.andExpect {
       status { isOk() }
+      header { string(X_TOTAL_COUNT, "2") }
     }.andDo {
       handle { result ->
         val actualUsers = objectMapper.readValue<List<User>>(result.response.contentAsByteArray)

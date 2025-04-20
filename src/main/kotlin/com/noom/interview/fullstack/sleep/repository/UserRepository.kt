@@ -4,9 +4,11 @@ import com.noom.interview.fullstack.sleep.applyPagination
 import com.noom.interview.fullstack.sleep.jooq.tables.Users.Companion.USERS
 import com.noom.interview.fullstack.sleep.jooq.tables.records.UsersRecord
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.model.Page
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import org.jooq.DSLContext
+import org.jooq.kotlin.fetchSingleValue
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
@@ -30,12 +32,18 @@ class UserRepository(private val jooq: DSLContext) {
       .fetchSingle { it.toModel() }
   }
 
-  fun findAll(pagination: Pagination? = null): List<User> {
-    return jooq
-      .selectFrom(USERS)
-      .orderBy(USERS.CREATED_AT.desc())
-      .applyPagination(pagination)
-      .fetch { it.toModel() }
+  fun findAll(pagination: Pagination? = null): Page<User> {
+    return Page(
+      list = jooq
+        .selectFrom(USERS)
+        .orderBy(USERS.CREATED_AT.desc())
+        .applyPagination(pagination)
+        .fetch { it.toModel() },
+      totalSize = jooq
+        .selectCount()
+        .from(USERS)
+        .fetchSingleValue()
+    )
   }
 
   fun findById(id: UUID): User? {

@@ -93,7 +93,7 @@ class SleepLogControllerTest @Autowired constructor(
     val expectedSleepLogs = listOf(
       createSleepLog(userId = userId),
       createSleepLog(userId = userId)
-    )
+    ).toPage()
     every { sleepLogService.findAll(userId, Pagination.fromPageAndSize(1, 2)) } returns expectedSleepLogs
 
     // When/Then
@@ -102,6 +102,7 @@ class SleepLogControllerTest @Autowired constructor(
       queryParam("page-size", "2")
     }.andExpect {
       status { isOk() }
+      header { string(X_TOTAL_COUNT, "2") }
     }.andDo {
       handle { result ->
         val actualSleepLogs = objectMapper.readValue<List<SleepLog>>(result.response.contentAsByteArray)

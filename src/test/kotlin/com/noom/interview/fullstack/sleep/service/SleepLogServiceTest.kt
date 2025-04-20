@@ -38,7 +38,7 @@ class SleepLogServiceTest {
     val expectedSleepLogs = listOf(
       createSleepLog(userId = userId),
       createSleepLog(userId = userId)
-    )
+    ).toPage()
     every { sleepLogRepository.findAll(userId) } returns expectedSleepLogs
 
     // When

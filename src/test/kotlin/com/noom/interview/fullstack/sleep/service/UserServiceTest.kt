@@ -3,6 +3,7 @@ package com.noom.interview.fullstack.sleep.service
 import com.noom.interview.fullstack.sleep.createUser
 import com.noom.interview.fullstack.sleep.createUserRequest
 import com.noom.interview.fullstack.sleep.repository.UserRepository
+import com.noom.interview.fullstack.sleep.toPage
 import com.noom.interview.fullstack.sleep.toUser
 import io.mockk.every
 import io.mockk.mockk
@@ -37,7 +38,7 @@ class UserServiceTest {
     val expectedUsers = listOf(
       createUser(),
       createUser()
-    )
+    ).toPage()
     every { userRepository.findAll() } returns expectedUsers
 
     // When
