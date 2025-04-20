@@ -84,7 +84,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823Z\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
@@ -253,7 +253,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"1fb41339-a215-4930-a28b-ae00189b57c9\",\n        \"name\": \"dan\",\n        \"timeZone\": \"America/Los_Angeles\",\n        \"createdAt\": \"2025-04-20T05:01:25.207812-07:00[America/Los_Angeles]\",\n        \"updatedAt\": \"2025-04-20T05:01:25.207812-07:00[America/Los_Angeles]\"\n    },\n    {\n        \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"name\": \"yegor\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"1fb41339-a215-4930-a28b-ae00189b57c9\",\n        \"name\": \"dan\",\n        \"timeZone\": \"America/Los_Angeles\",\n        \"createdAt\": \"2025-04-20T05:01:25.207812Z\",\n        \"updatedAt\": \"2025-04-20T05:01:25.207812Z\"\n    },\n    {\n        \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"name\": \"yegor\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"createdAt\": \"2025-04-20T13:59:26.196823Z\",\n        \"updatedAt\": \"2025-04-20T13:59:26.196823Z\"\n    }\n]"
 						}
 					]
 				},
@@ -298,7 +298,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823Z\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -416,7 +416,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"1a306af2-df0e-4680-8256-2e890133bc92\",\n    \"userId\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T12:19:49.824712+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-18T12:19:49.824712+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"1a306af2-df0e-4680-8256-2e890133bc92\",\n    \"userId\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T12:19:49.824712Z\",\n    \"updatedAt\": \"2025-04-18T12:19:49.824712Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
@@ -645,7 +645,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\"\n    },\n    {\n        \"id\": \"8a987fba-7dfb-4916-9157-6239d14c276d\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-17T00:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-17T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-20T14:20:45.892851+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:45.892851+02:00[Europe/Warsaw]\"\n    },\n    {\n        \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-20T14:20:35.944498Z\",\n        \"updatedAt\": \"2025-04-20T14:20:35.944498Z\"\n    },\n    {\n        \"id\": \"8a987fba-7dfb-4916-9157-6239d14c276d\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"bedTime\": \"2025-04-17T00:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-17T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-20T14:20:45.892851Z\",\n        \"updatedAt\": \"2025-04-20T14:20:45.892851Z\"\n    },\n    {\n        \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-20T14:20:53.291093Z\",\n        \"updatedAt\": \"2025-04-20T14:20:53.291093Z\"\n    }\n]"
 						}
 					]
 				},
@@ -702,7 +702,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498Z\",\n    \"updatedAt\": \"2025-04-20T14:20:35.944498Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -794,7 +794,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-20T14:20:53.291093Z\",\n    \"updatedAt\": \"2025-04-20T14:20:53.291093Z\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -892,7 +892,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:23:22.307696+02:00[Europe/Warsaw]\"\n}"
+							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498Z\",\n    \"updatedAt\": \"2025-04-20T14:23:22.307696Z\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
