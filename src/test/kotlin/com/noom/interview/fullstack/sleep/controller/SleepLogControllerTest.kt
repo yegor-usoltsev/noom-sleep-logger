@@ -3,14 +3,11 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.createSleepLog
-import com.noom.interview.fullstack.sleep.createSleepLogRequest
-import com.noom.interview.fullstack.sleep.createSleepStats
+import com.noom.interview.fullstack.sleep.*
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.SleepLog
 import com.noom.interview.fullstack.sleep.model.SleepStats
 import com.noom.interview.fullstack.sleep.service.SleepLogService
-import com.noom.interview.fullstack.sleep.toSleepLog
 import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
-import java.time.Instant
 import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -59,7 +56,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = Instant.now().plus(8, ChronoUnit.HOURS) // bedTime is in a future
+      bedTime = ZonedDateTime.now(UTC).plus(8, ChronoUnit.HOURS) // bedTime is in a future
     )
 
     // When/Then
@@ -76,8 +73,8 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = Instant.now(),
-      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(UTC),
+      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -225,8 +222,8 @@ class SleepLogControllerTest @Autowired constructor(
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = Instant.now(),
-      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(UTC),
+      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -239,22 +236,16 @@ class SleepLogControllerTest @Autowired constructor(
   }
 
   @Test
-  fun `deleteById should return 200 with deleted sleep log when exists`() {
+  fun `deleteById should return 204 when sleep log exists`() {
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
-    every { sleepLogService.deleteById(userId, sleepLogId) } returns expectedSleepLog
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns true
 
     // When/Then
     mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
       .andExpect {
-        status { isOk() }
-      }.andDo {
-        handle { result ->
-          val actualSleepLog = objectMapper.readValue<SleepLog>(result.response.contentAsByteArray)
-          assertThat(actualSleepLog).isEqualTo(expectedSleepLog)
-        }
+        status { isNoContent() }
       }
   }
 
@@ -263,7 +254,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    every { sleepLogService.deleteById(userId, sleepLogId) } returns null
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns false
 
     // When/Then
     mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
@@ -279,7 +270,7 @@ class SleepLogControllerTest @Autowired constructor(
     val daysBack = 30
     val expectedStats = createSleepStats(
       userId = userId,
-      fromDate = LocalDate.now().minusDays(daysBack.toLong())
+      fromDate = LocalDate.now(UTC).minusDays(daysBack.toLong())
     )
     every { sleepLogService.calculateSleepStats(userId, daysBack) } returns expectedStats
 

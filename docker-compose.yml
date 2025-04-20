@@ -9,8 +9,10 @@ services:
       SPRING_DATASOURCE_PASSWORD: sleep
     ports:
       - "8080:8080"
+    restart: unless-stopped
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     profiles:
       - app
 
@@ -22,3 +24,8 @@ services:
       POSTGRES_PASSWORD: sleep
     ports:
       - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "sleep" ]
+      interval: 5s
+      retries: 5

@@ -35,7 +35,7 @@ class SleepLogService(private val sleepLogRepository: SleepLogRepository) {
   }
 
   @Transactional
-  fun deleteById(userId: UUID, id: UUID): SleepLog? {
+  fun deleteById(userId: UUID, id: UUID): Boolean {
     return sleepLogRepository.deleteById(userId, id)
   }
 

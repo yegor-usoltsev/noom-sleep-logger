@@ -11,6 +11,10 @@ spring:
     default-property-inclusion: non_null
     locale: en_US
     time-zone: UTC
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+    serialization:
+      write-dates-with-zone-id: true
   main:
     banner-mode: off
   web:

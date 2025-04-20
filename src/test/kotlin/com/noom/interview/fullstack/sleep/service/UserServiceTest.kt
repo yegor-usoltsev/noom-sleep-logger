@@ -63,4 +63,20 @@ class UserServiceTest {
     verify(exactly = 1) { userRepository.findById(userId) }
   }
 
+  @Test
+  fun updateById() {
+    // Given
+    val userId = UUID.randomUUID()
+    val request = createUserRequest()
+    val expectedUser = request.toUser(id = userId)
+    every { userRepository.updateById(userId, request) } returns expectedUser
+
+    // When
+    val result = userService.updateById(userId, request)
+
+    // Then
+    assertThat(result).isEqualTo(expectedUser)
+    verify(exactly = 1) { userRepository.updateById(userId, request) }
+  }
+
 }
