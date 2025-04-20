@@ -239,22 +239,16 @@ class SleepLogControllerTest @Autowired constructor(
   }
 
   @Test
-  fun `deleteById should return 200 with deleted sleep log when exists`() {
+  fun `deleteById should return 204 when sleep log exists`() {
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
-    every { sleepLogService.deleteById(userId, sleepLogId) } returns expectedSleepLog
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns true
 
     // When/Then
     mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)
       .andExpect {
-        status { isOk() }
-      }.andDo {
-        handle { result ->
-          val actualSleepLog = objectMapper.readValue<SleepLog>(result.response.contentAsByteArray)
-          assertThat(actualSleepLog).isEqualTo(expectedSleepLog)
-        }
+        status { isNoContent() }
       }
   }
 
@@ -263,7 +257,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    every { sleepLogService.deleteById(userId, sleepLogId) } returns null
+    every { sleepLogService.deleteById(userId, sleepLogId) } returns false
 
     // When/Then
     mockMvc.delete("/api/v1/users/{user-id}/sleep-logs/{sleep-log-id}", userId, sleepLogId)

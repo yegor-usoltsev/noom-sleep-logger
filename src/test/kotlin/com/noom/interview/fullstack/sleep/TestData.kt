@@ -9,19 +9,23 @@ import java.util.*
 fun createUser(
   id: UUID = UUID.randomUUID(),
   name: String = "${UUID.randomUUID()}",
+  timeZone: ZoneId = ZoneOffset.UTC,
   createdAt: Instant = Instant.now(),
   updatedAt: Instant = Instant.now()
 ): User = User(
   id = id,
   name = name,
+  timeZone = timeZone,
   createdAt = createdAt,
   updatedAt = updatedAt
 )
 
 fun createUserRequest(
-  name: String = "${UUID.randomUUID()}"
+  name: String = "${UUID.randomUUID()}",
+  timeZone: ZoneId = ZoneOffset.UTC
 ): CreateUserRequest = CreateUserRequest(
-  name = name
+  name = name,
+  timeZone = timeZone
 )
 
 fun CreateUserRequest.toUser(
@@ -31,6 +35,7 @@ fun CreateUserRequest.toUser(
 ): User = createUser(
   id = id,
   name = name,
+  timeZone = timeZone,
   createdAt = createdAt,
   updatedAt = updatedAt
 )
@@ -38,6 +43,7 @@ fun CreateUserRequest.toUser(
 fun createSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
+  timeZone: ZoneId = ZoneOffset.UTC,
   bedTime: Instant = Instant.now().minus(8, ChronoUnit.HOURS),
   wakeTime: Instant = Instant.now(),
   mood: Mood = Mood.entries.random(),
@@ -48,6 +54,7 @@ fun createSleepLog(
 ): SleepLog = SleepLog(
   id = id,
   userId = userId,
+  timeZone = timeZone,
   bedTime = bedTime,
   wakeTime = wakeTime,
   mood = mood,
@@ -70,6 +77,7 @@ fun createSleepLogRequest(
 fun CreateSleepLogRequest.toSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
+  timeZone: ZoneId = ZoneOffset.UTC,
   date: LocalDate = wakeTime.atOffset(ZoneOffset.UTC).toLocalDate(),
   duration: Duration = Duration.between(bedTime, wakeTime),
   createdAt: Instant = Instant.now(),
@@ -77,6 +85,7 @@ fun CreateSleepLogRequest.toSleepLog(
 ): SleepLog = createSleepLog(
   id = id,
   userId = userId,
+  timeZone = timeZone,
   bedTime = bedTime,
   wakeTime = wakeTime,
   mood = mood,
@@ -88,6 +97,7 @@ fun CreateSleepLogRequest.toSleepLog(
 
 fun createSleepStats(
   userId: UUID = UUID.randomUUID(),
+  timeZone: ZoneId = ZoneOffset.UTC,
   fromDate: LocalDate = LocalDate.now().minusDays(30),
   toDate: LocalDate = LocalDate.now(),
   averageBedTime: LocalTime = LocalTime.of(0, 30),
@@ -96,6 +106,7 @@ fun createSleepStats(
   moodFrequencies: MoodFrequencies = MoodFrequencies(bad = 1, ok = 2, good = 3)
 ): SleepStats = SleepStats(
   userId = userId,
+  timeZone = timeZone,
   fromDate = fromDate,
   toDate = toDate,
   averageBedTime = averageBedTime,

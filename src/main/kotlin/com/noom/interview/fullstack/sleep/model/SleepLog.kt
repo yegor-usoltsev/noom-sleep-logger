@@ -6,11 +6,13 @@ import jakarta.validation.constraints.PastOrPresent
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.util.*
 
 data class SleepLog(
   val id: UUID,
   val userId: UUID,
+  val timeZone: ZoneId,
   val bedTime: Instant,
   val wakeTime: Instant,
   val mood: Mood,

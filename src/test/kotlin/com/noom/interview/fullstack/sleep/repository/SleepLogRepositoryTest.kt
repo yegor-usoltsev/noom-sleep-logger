@@ -257,11 +257,10 @@ class SleepLogRepositoryTest @Autowired constructor(
     val createdLog = sleepLogRepository.create(user.id, createSleepLogRequest())
 
     // When
-    val deletedLog = sleepLogRepository.deleteById(user.id, createdLog.id)
+    val deleted = sleepLogRepository.deleteById(user.id, createdLog.id)
 
     // Then
-    assertThat(deletedLog).isNotNull()
-    assertThat(deletedLog).isEqualTo(createdLog)
+    assertThat(deleted).isTrue()
     assertThat(sleepLogRepository.findById(user.id, createdLog.id)).isNull()
   }
 
@@ -272,10 +271,10 @@ class SleepLogRepositoryTest @Autowired constructor(
     val nonExistentId = UUID.randomUUID()
 
     // When
-    val deletedLog = sleepLogRepository.deleteById(userId, nonExistentId)
+    val deleted = sleepLogRepository.deleteById(userId, nonExistentId)
 
     // Then
-    assertThat(deletedLog).isNull()
+    assertThat(deleted).isFalse()
   }
 
   @Test
@@ -286,10 +285,10 @@ class SleepLogRepositoryTest @Autowired constructor(
     val createdLogForUser2 = sleepLogRepository.create(user2.id, createSleepLogRequest())
 
     // When
-    val deletedLog = sleepLogRepository.deleteById(user1.id, createdLogForUser2.id)
+    val deleted = sleepLogRepository.deleteById(user1.id, createdLogForUser2.id)
 
     // Then
-    assertThat(deletedLog).isNull()
+    assertThat(deleted).isFalse()
     assertThat(sleepLogRepository.findById(user2.id, createdLogForUser2.id)).isNotNull()
   }
 

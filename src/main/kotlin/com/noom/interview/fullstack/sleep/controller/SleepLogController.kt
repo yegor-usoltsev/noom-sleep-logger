@@ -69,8 +69,8 @@ class SleepLogController(private val sleepLogService: SleepLogService) {
     @PathVariable(value = "user-id") userId: UUID,
     @PathVariable(value = "sleep-log-id") id: UUID
   ): ResponseEntity<SleepLog> {
-    val sleepLog = sleepLogService.deleteById(userId, id) ?: throw NotFoundException()
-    return ResponseEntity(sleepLog, HttpStatus.OK)
+    if (!sleepLogService.deleteById(userId, id)) throw NotFoundException()
+    return ResponseEntity(HttpStatus.NO_CONTENT)
   }
 
   @GetMapping("/stats")

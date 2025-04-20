@@ -105,14 +105,13 @@ class SleepLogServiceTest {
     // Given
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
-    val expectedSleepLog = createSleepLog(id = sleepLogId, userId = userId)
-    every { sleepLogRepository.deleteById(userId, sleepLogId) } returns expectedSleepLog
+    every { sleepLogRepository.deleteById(userId, sleepLogId) } returns true
 
     // When
     val result = sleepLogService.deleteById(userId, sleepLogId)
 
     // Then
-    assertThat(result).isEqualTo(expectedSleepLog)
+    assertThat(result).isTrue()
     verify(exactly = 1) { sleepLogRepository.deleteById(userId, sleepLogId) }
   }
 

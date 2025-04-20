@@ -9,6 +9,7 @@ import com.noom.interview.fullstack.sleep.model.User
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.time.ZoneId
 import java.util.*
 
 @Repository
@@ -18,7 +19,12 @@ class UserRepository(private val jooq: DSLContext) {
   fun create(newUser: CreateUserRequest): User {
     return jooq
       .insertInto(USERS)
-      .set(UsersRecord(name = newUser.name.trim().lowercase()))
+      .set(
+        UsersRecord(
+          name = newUser.name.trim().lowercase(),
+          timeZone = newUser.timeZone.id
+        )
+      )
       .returning()
       .fetchSingle { it.toModel() }
   }
@@ -44,6 +50,7 @@ fun UsersRecord.toModel(): User {
   return User(
     id = id!!,
     name = name,
+    timeZone = ZoneId.of(timeZone),
     createdAt = createdAt!!,
     updatedAt = updatedAt!!
   )
