@@ -4,28 +4,28 @@ import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import jakarta.validation.constraints.Past
 import jakarta.validation.constraints.PastOrPresent
 import java.time.Duration
-import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
 
 data class SleepLog(
   val id: UUID,
   val userId: UUID,
   val timeZone: ZoneId,
-  val bedTime: Instant,
-  val wakeTime: Instant,
+  val bedTime: ZonedDateTime,
+  val wakeTime: ZonedDateTime,
   val mood: Mood,
   val date: LocalDate,
   val duration: Duration,
-  val createdAt: Instant,
-  val updatedAt: Instant
+  val createdAt: ZonedDateTime,
+  val updatedAt: ZonedDateTime
 )
 
 data class CreateSleepLogRequest(
   @field:Past
-  val bedTime: Instant,
+  val bedTime: ZonedDateTime,
   @field:PastOrPresent
-  val wakeTime: Instant,
+  val wakeTime: ZonedDateTime,
   val mood: Mood
 )

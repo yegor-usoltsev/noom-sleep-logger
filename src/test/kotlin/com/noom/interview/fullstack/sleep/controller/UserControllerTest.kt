@@ -3,12 +3,10 @@ package com.noom.interview.fullstack.sleep.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ninjasquad.springmockk.MockkBean
-import com.noom.interview.fullstack.sleep.createUser
-import com.noom.interview.fullstack.sleep.createUserRequest
+import com.noom.interview.fullstack.sleep.*
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.service.UserService
-import com.noom.interview.fullstack.sleep.toUser
 import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -68,8 +66,8 @@ class UserControllerTest @Autowired constructor(
   fun `findAll should return 200 with all users`() {
     // Given
     val expectedUsers = listOf(
-      createUser(),
-      createUser()
+      createUser(timeZone = LAX),
+      createUser(timeZone = WAW)
     )
     every { userService.findAll(Pagination.fromPageAndSize(1, 2)) } returns expectedUsers
 

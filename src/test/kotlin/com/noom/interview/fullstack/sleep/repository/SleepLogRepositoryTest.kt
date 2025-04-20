@@ -1,5 +1,7 @@
 package com.noom.interview.fullstack.sleep.repository
 
+import com.noom.interview.fullstack.sleep.LAX
+import com.noom.interview.fullstack.sleep.WAW
 import com.noom.interview.fullstack.sleep.createSleepLogRequest
 import com.noom.interview.fullstack.sleep.createUserRequest
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
@@ -39,7 +41,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(actual.bedTime).isCloseTo(given.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.wakeTime).isCloseTo(given.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.mood).isEqualTo(given.mood)
-    assertThat(actual.date).isEqualTo(given.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
+    assertThat(actual.date).isEqualTo(given.wakeTime.toLocalDate())
     assertThat(actual.duration).isCloseTo(Duration.between(given.bedTime, given.wakeTime), Duration.ofSeconds(1))
     assertThat(actual.createdAt).isNotNull()
     assertThat(actual.updatedAt).isNotNull()
@@ -77,8 +79,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Given
     val user = userRepository.create(createUserRequest())
     val newSleepLog = createSleepLogRequest(
-      bedTime = Instant.now(),
-      wakeTime = Instant.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(),
+      wakeTime = ZonedDateTime.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When
@@ -95,15 +97,15 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = Instant.now().minus(48 + 8, ChronoUnit.HOURS),
-        wakeTime = Instant.now().minus(48, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(LAX).minus(48 + 8, ChronoUnit.HOURS),
+        wakeTime = ZonedDateTime.now(LAX).minus(48, ChronoUnit.HOURS)
       )
     )
     val sleepLog1 = sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(WAW).minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = ZonedDateTime.now(WAW).minus(24, ChronoUnit.HOURS)
       )
     )
     val sleepLog2 = sleepLogRepository.create(user.id, createSleepLogRequest())
@@ -124,8 +126,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = Instant.now().minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = Instant.now().minus(24, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now().minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = ZonedDateTime.now().minus(24, ChronoUnit.HOURS)
       )
     )
     val latestLog = sleepLogRepository.create(user.id, createSleepLogRequest())
@@ -212,7 +214,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(updatedLog.bedTime).isCloseTo(updateRequest.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.wakeTime).isCloseTo(updateRequest.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.mood).isEqualTo(updateRequest.mood)
-    assertThat(updatedLog.date).isEqualTo(updateRequest.wakeTime.atOffset(ZoneOffset.UTC).toLocalDate())
+    assertThat(updatedLog.date).isEqualTo(updateRequest.wakeTime.toLocalDate())
     assertThat(updatedLog.duration).isCloseTo(
       Duration.between(updateRequest.bedTime, updateRequest.wakeTime),
       Duration.ofSeconds(1)
@@ -292,12 +294,13 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(sleepLogRepository.findById(user2.id, createdLogForUser2.id)).isNotNull()
   }
 
+  // TODO
   @Test
   fun `calculateSleepStats should return sleep stats for a user`() {
     // Given
     val user = userRepository.create(createUserRequest())
     val nowDate = LocalDate.now()
-    val now = LocalDate.now().atStartOfDay().plusHours(7).plusMinutes(30).toInstant(ZoneOffset.UTC) // 07:30
+    val now = LocalDate.now().atStartOfDay().plusHours(7).plusMinutes(30).atZone(ZoneOffset.UTC) // 07:30
     val daysBack = 30
     sleepLogRepository.create(
       user.id,

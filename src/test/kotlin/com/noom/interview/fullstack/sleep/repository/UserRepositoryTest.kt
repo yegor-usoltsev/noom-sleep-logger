@@ -1,5 +1,7 @@
 package com.noom.interview.fullstack.sleep.repository
 
+import com.noom.interview.fullstack.sleep.LAX
+import com.noom.interview.fullstack.sleep.WAW
 import com.noom.interview.fullstack.sleep.createUserRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -60,8 +62,8 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `findAll should return all users`() {
     // Given
-    val user1 = userRepository.create(createUserRequest())
-    val user2 = userRepository.create(createUserRequest())
+    val user1 = userRepository.create(createUserRequest(timeZone = LAX))
+    val user2 = userRepository.create(createUserRequest(timeZone = WAW))
 
     // When
     val users = userRepository.findAll()

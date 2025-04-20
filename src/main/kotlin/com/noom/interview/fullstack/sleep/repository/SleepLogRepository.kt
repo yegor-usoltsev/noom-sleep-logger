@@ -26,8 +26,8 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .set(
         SleepLogsRecord(
           userId = userId,
-          bedTime = newSleepLog.bedTime,
-          wakeTime = newSleepLog.wakeTime,
+          bedTime = newSleepLog.bedTime.toInstant(),
+          wakeTime = newSleepLog.wakeTime.toInstant(),
           mood = newSleepLog.mood
         )
       )
@@ -68,8 +68,8 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .set(
         SleepLogsRecord(
           userId = userId,
-          bedTime = newSleepLog.bedTime,
-          wakeTime = newSleepLog.wakeTime,
+          bedTime = newSleepLog.bedTime.toInstant(),
+          wakeTime = newSleepLog.wakeTime.toInstant(),
           mood = newSleepLog.mood,
           updatedAt = Instant.now()
         )
@@ -151,16 +151,17 @@ class SleepLogRepository(private val jooq: DSLContext) {
 }
 
 fun SleepLogsViewRecord.toModel(): SleepLog {
+  val timeZone = ZoneId.of(timeZone)
   return SleepLog(
     id = id!!,
     userId = userId!!,
-    timeZone = ZoneId.of(timeZone),
-    bedTime = bedTime!!,
-    wakeTime = wakeTime!!,
+    timeZone = timeZone,
+    bedTime = bedTime!!.atZone(timeZone),
+    wakeTime = wakeTime!!.atZone(timeZone),
     mood = mood!!,
     date = date!!,
     duration = duration!!.toDuration(),
-    createdAt = createdAt!!,
-    updatedAt = updatedAt!!
+    createdAt = createdAt!!.atZone(timeZone),
+    updatedAt = updatedAt!!.atZone(timeZone)
   )
 }
