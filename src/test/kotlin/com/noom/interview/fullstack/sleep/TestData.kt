@@ -12,7 +12,7 @@ val WAW: ZoneId = ZoneId.of("Europe/Warsaw")       // UTC+01:00 / UTC+02:00 (DST
 fun createUser(
   id: UUID = UUID.randomUUID(),
   name: String = "${UUID.randomUUID()}",
-  timeZone: ZoneId = ZoneOffset.UTC,
+  timeZone: ZoneId = UTC,
   createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
   updatedAt: ZonedDateTime = ZonedDateTime.now(timeZone)
 ): User = User(
@@ -25,7 +25,7 @@ fun createUser(
 
 fun createUserRequest(
   name: String = "${UUID.randomUUID()}",
-  timeZone: ZoneId = ZoneOffset.UTC
+  timeZone: ZoneId = UTC
 ): CreateUserRequest = CreateUserRequest(
   name = name,
   timeZone = timeZone
@@ -46,7 +46,7 @@ fun CreateUserRequest.toUser(
 fun createSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
-  timeZone: ZoneId = ZoneOffset.UTC,
+  timeZone: ZoneId = UTC,
   bedTime: ZonedDateTime = ZonedDateTime.now(timeZone).minus(8, ChronoUnit.HOURS),
   wakeTime: ZonedDateTime = ZonedDateTime.now(timeZone),
   mood: Mood = Mood.entries.random(),
@@ -80,7 +80,7 @@ fun createSleepLogRequest(
 fun CreateSleepLogRequest.toSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
-  timeZone: ZoneId = ZoneOffset.UTC,
+  timeZone: ZoneId = UTC,
   date: LocalDate = wakeTime.toLocalDate(),
   duration: Duration = Duration.between(bedTime, wakeTime),
   createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
@@ -100,7 +100,7 @@ fun CreateSleepLogRequest.toSleepLog(
 
 fun createSleepStats(
   userId: UUID = UUID.randomUUID(),
-  timeZone: ZoneId = ZoneOffset.UTC,
+  timeZone: ZoneId = UTC,
   fromDate: LocalDate = LocalDate.now(timeZone).minusDays(30),
   toDate: LocalDate = LocalDate.now(timeZone),
   averageBedTime: LocalTime = LocalTime.of(0, 30),

@@ -8,6 +8,9 @@ import org.jooq.SelectLimitStep
 import org.jooq.impl.DSL
 import org.jooq.impl.SQLDataType.TIMESTAMP
 import java.sql.Timestamp
+import java.time.ZoneId
+
+val UTC: ZoneId = ZoneId.of("UTC")
 
 fun <R : Record> SelectLimitStep<R>.applyPagination(pagination: Pagination?): SelectForUpdateStep<R> {
   return if (pagination != null) this.limit(pagination.limit).offset(pagination.offset) else this

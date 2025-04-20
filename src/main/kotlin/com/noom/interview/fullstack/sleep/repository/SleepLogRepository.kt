@@ -1,5 +1,6 @@
 package com.noom.interview.fullstack.sleep.repository
 
+import com.noom.interview.fullstack.sleep.UTC
 import com.noom.interview.fullstack.sleep.applyPagination
 import com.noom.interview.fullstack.sleep.atTimeZone
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.time.ZoneId
-import java.time.ZoneOffset.UTC
 import java.util.*
 
 @Repository
