@@ -32,7 +32,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Yegor\"\n}",
+							"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"Europe/Warsaw\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -49,7 +49,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Yegor\"\n}",
+									"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"Europe/Warsaw\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -72,7 +72,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 17 Apr 2025 20:38:51 GMT"
+									"value": "Sun, 20 Apr 2025 11:59:26 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -84,7 +84,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"name\": \"yegor\",\n    \"createdAt\": \"2025-04-18T15:14:01.072053Z\",\n    \"updatedAt\": \"2025-04-18T15:14:01.072053Z\"\n}"
+							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
@@ -93,7 +93,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \" !@# \"\n}",
+									"raw": "{\n    \"name\": \" !@# \",\n    \"timeZone\": \"Europe/Warsaw\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -133,7 +133,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Yegor\"\n}",
+									"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"Europe/Warsaw\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -253,7 +253,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"name\": \"yegor\",\n        \"createdAt\": \"2025-04-19T16:25:01.243912Z\",\n        \"updatedAt\": \"2025-04-19T16:25:01.243912Z\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"1fb41339-a215-4930-a28b-ae00189b57c9\",\n        \"name\": \"dan\",\n        \"timeZone\": \"America/Los_Angeles\",\n        \"createdAt\": \"2025-04-20T05:01:25.207812-07:00[America/Los_Angeles]\",\n        \"updatedAt\": \"2025-04-20T05:01:25.207812-07:00[America/Los_Angeles]\"\n    },\n    {\n        \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"name\": \"yegor\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n    }\n]"
 						}
 					]
 				},
@@ -298,7 +298,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"name\": \"yegor\",\n    \"createdAt\": \"2025-04-18T15:14:01.072053Z\",\n    \"updatedAt\": \"2025-04-18T15:14:01.072053Z\"\n}"
+							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"createdAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T13:59:26.196823+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -364,7 +364,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+							"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -381,7 +381,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -416,7 +416,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"1a306af2-df0e-4680-8256-2e890133bc92\",\n    \"userId\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T12:19:49.824712Z\",\n    \"updatedAt\": \"2025-04-18T12:19:49.824712Z\"\n}"
+							"body": "{\n    \"id\": \"1a306af2-df0e-4680-8256-2e890133bc92\",\n    \"userId\": \"f4600cf1-50f7-4501-ae92-4d9172a28548\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T12:19:49.824712+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-18T12:19:49.824712+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
@@ -425,7 +425,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2125-04-17T23:00:00Z\",\n    \"wakeTime\": \"2125-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2125-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2125-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -465,7 +465,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -509,7 +509,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-18T07:00:00Z\",\n    \"wakeTime\": \"2025-04-17T23:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -645,7 +645,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": \"dbad6f7f-17f2-4b04-b631-3ba5ed1d825d\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-17T23:00:00Z\",\n        \"wakeTime\": \"2025-04-18T07:00:00Z\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-19T16:25:45.574367Z\",\n        \"updatedAt\": \"2025-04-19T16:25:45.574367Z\"\n    },\n    {\n        \"id\": \"78d6d1ff-b644-48f6-b603-ff598bde8aaf\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-17T00:00:00Z\",\n        \"wakeTime\": \"2025-04-17T07:00:00Z\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-19T16:26:14.539383Z\",\n        \"updatedAt\": \"2025-04-19T16:26:14.539383Z\"\n    },\n    {\n        \"id\": \"3e5de2ee-fb4d-4158-a6e4-7d643b65bb8f\",\n        \"userId\": \"633c2453-6d6a-48c8-b0c8-af3cd5b68506\",\n        \"bedTime\": \"2025-04-16T01:00:00Z\",\n        \"wakeTime\": \"2025-04-16T07:00:00Z\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-19T16:26:28.809645Z\",\n        \"updatedAt\": \"2025-04-19T16:26:28.809645Z\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"GOOD\",\n        \"date\": \"2025-04-18\",\n        \"duration\": \"PT8H\",\n        \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\"\n    },\n    {\n        \"id\": \"8a987fba-7dfb-4916-9157-6239d14c276d\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-17T00:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-17T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"OK\",\n        \"date\": \"2025-04-17\",\n        \"duration\": \"PT7H\",\n        \"createdAt\": \"2025-04-20T14:20:45.892851+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:45.892851+02:00[Europe/Warsaw]\"\n    },\n    {\n        \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n        \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n        \"timeZone\": \"Europe/Warsaw\",\n        \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n        \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n        \"mood\": \"BAD\",\n        \"date\": \"2025-04-16\",\n        \"duration\": \"PT6H\",\n        \"createdAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\",\n        \"updatedAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\"\n    }\n]"
 						}
 					]
 				},
@@ -702,7 +702,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n    \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n    \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n}"
+							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -794,7 +794,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"d670edbd-0289-4b8d-b093-b788c008a0cd\",\n    \"userId\": \"d1010a68-8590-4608-adf9-6d1d48097346\",\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-18T14:09:57.198426Z\",\n    \"updatedAt\": \"2025-04-18T14:09:57.198426Z\"\n}"
+							"body": "{\n    \"id\": \"c299f644-4548-4cd7-a4c7-a6a81df67198\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-16T01:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-16T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:20:53.291093+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "404 Not Found",
@@ -840,7 +840,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+							"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -857,7 +857,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -892,7 +892,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"66effc69-e7ab-457b-a58c-ced654a12064\",\n    \"userId\": \"72da7491-301e-4687-b662-450635166b94\",\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-18T16:06:34.753861Z\",\n    \"updatedAt\": \"2025-04-18T16:08:39.282585Z\"\n}"
+							"body": "{\n    \"id\": \"2f38920b-b1c3-4bb2-a589-02640656861f\",\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-18\",\n    \"duration\": \"PT8H\",\n    \"createdAt\": \"2025-04-20T14:20:35.944498+02:00[Europe/Warsaw]\",\n    \"updatedAt\": \"2025-04-20T14:23:22.307696+02:00[Europe/Warsaw]\"\n}"
 						},
 						{
 							"name": "400 Bad Request",
@@ -901,7 +901,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2125-04-17T23:00:00Z\",\n    \"wakeTime\": \"2125-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2125-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2125-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -941,7 +941,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -985,7 +985,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00Z\",\n    \"wakeTime\": \"2025-04-18T07:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1029,7 +1029,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"bedTime\": \"2025-04-18T07:00:00Z\",\n    \"wakeTime\": \"2025-04-17T23:00:00Z\",\n    \"mood\": \"GOOD\"\n}",
+									"raw": "{\n    \"bedTime\": \"2025-04-18T07:00:00+02:00[Europe/Warsaw]\",\n    \"wakeTime\": \"2025-04-17T23:00:00+02:00[Europe/Warsaw]\",\n    \"mood\": \"BAD\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1077,27 +1077,19 @@
 					},
 					"response": [
 						{
-							"name": "200 OK",
+							"name": "204 No Content",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}/sleep-logs/{{SLEEP_LOG_ID}}"
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
 							"header": [
 								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
 									"key": "Date",
-									"value": "Fri, 18 Apr 2025 16:09:28 GMT"
+									"value": "Sun, 20 Apr 2025 12:27:09 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1109,7 +1101,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"66effc69-e7ab-457b-a58c-ced654a12064\",\n    \"userId\": \"72da7491-301e-4687-b662-450635166b94\",\n    \"bedTime\": \"2025-04-16T01:00:00Z\",\n    \"wakeTime\": \"2025-04-16T07:00:00Z\",\n    \"mood\": \"BAD\",\n    \"date\": \"2025-04-16\",\n    \"duration\": \"PT6H\",\n    \"createdAt\": \"2025-04-18T16:06:34.753861Z\",\n    \"updatedAt\": \"2025-04-18T16:08:39.282585Z\"\n}"
+							"body": null
 						},
 						{
 							"name": "404 Not Found",
@@ -1132,7 +1124,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Fri, 18 Apr 2025 16:10:07 GMT"
+									"value": "Sun, 20 Apr 2025 12:27:23 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1144,7 +1136,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/72da7491-301e-4687-b662-450635166b94/sleep-logs/00000000-0000-0000-0000-000000000000\"\n}"
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/a1ff39aa-fa77-4962-ac45-bb5f52d903bf/sleep-logs/b845633f-7008-4836-9dd6-b8dd755f6058\"\n}"
 						}
 					]
 				},
@@ -1239,7 +1231,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"userId\": \"5c7aac17-e9e9-4c20-9ddd-85627a7e9c72\",\n    \"fromDate\": \"2025-03-20\",\n    \"toDate\": \"2025-04-19\",\n    \"averageBedTime\": \"23:55:00\",\n    \"averageWakeTime\": \"07:45:00\",\n    \"averageDuration\": \"PT7H50M\",\n    \"moodFrequencies\": {\n        \"bad\": 1,\n        \"ok\": 2,\n        \"good\": 3\n    }\n}"
+							"body": "{\n    \"userId\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"timeZone\": \"Europe/Warsaw\",\n    \"fromDate\": \"2025-03-21\",\n    \"toDate\": \"2025-04-20\",\n    \"averageBedTime\": \"23:40:00\",\n    \"averageWakeTime\": \"07:00:00\",\n    \"averageDuration\": \"PT7H20M\",\n    \"moodFrequencies\": {\n        \"bad\": 1,\n        \"ok\": 2,\n        \"good\": 3\n    }\n}"
 						},
 						{
 							"name": "404 Not Found",
