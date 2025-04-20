@@ -156,13 +156,12 @@ fun SleepLogsViewRecord.toModel(): SleepLog {
   return SleepLog(
     id = id!!,
     userId = userId!!,
-    timeZone = timeZone,
     bedTime = bedTime!!.atZone(timeZone),
     wakeTime = wakeTime!!.atZone(timeZone),
     mood = mood!!,
     date = date!!,
     duration = duration!!.toDuration(),
-    createdAt = createdAt!!.atZone(timeZone),
-    updatedAt = updatedAt!!.atZone(timeZone)
+    createdAt = createdAt!!,
+    updatedAt = updatedAt!!
   )
 }

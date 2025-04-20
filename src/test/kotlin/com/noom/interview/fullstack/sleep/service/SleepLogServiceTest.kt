@@ -1,10 +1,7 @@
 package com.noom.interview.fullstack.sleep.service
 
-import com.noom.interview.fullstack.sleep.createSleepLog
-import com.noom.interview.fullstack.sleep.createSleepLogRequest
-import com.noom.interview.fullstack.sleep.createSleepStats
+import com.noom.interview.fullstack.sleep.*
 import com.noom.interview.fullstack.sleep.repository.SleepLogRepository
-import com.noom.interview.fullstack.sleep.toSleepLog
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -122,7 +119,7 @@ class SleepLogServiceTest {
     val daysBack = 30
     val expectedStats = createSleepStats(
       userId = userId,
-      fromDate = LocalDate.now().minusDays(daysBack.toLong())
+      fromDate = LocalDate.now(UTC).minusDays(daysBack.toLong())
     )
     every { sleepLogRepository.calculateSleepStats(userId, daysBack) } returns expectedStats
 

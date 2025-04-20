@@ -56,7 +56,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = ZonedDateTime.now().plus(8, ChronoUnit.HOURS) // bedTime is in a future
+      bedTime = ZonedDateTime.now(UTC).plus(8, ChronoUnit.HOURS) // bedTime is in a future
     )
 
     // When/Then
@@ -73,8 +73,8 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = ZonedDateTime.now(),
-      wakeTime = ZonedDateTime.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(UTC),
+      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -91,8 +91,8 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val expectedSleepLogs = listOf(
-      createSleepLog(userId = userId, timeZone = LAX),
-      createSleepLog(userId = userId, timeZone = WAW)
+      createSleepLog(userId = userId),
+      createSleepLog(userId = userId)
     )
     every { sleepLogService.findAll(userId, Pagination.fromPageAndSize(1, 2)) } returns expectedSleepLogs
 
@@ -222,8 +222,8 @@ class SleepLogControllerTest @Autowired constructor(
     val userId = UUID.randomUUID()
     val sleepLogId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = ZonedDateTime.now(),
-      wakeTime = ZonedDateTime.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(UTC),
+      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -270,7 +270,7 @@ class SleepLogControllerTest @Autowired constructor(
     val daysBack = 30
     val expectedStats = createSleepStats(
       userId = userId,
-      fromDate = LocalDate.now().minusDays(daysBack.toLong())
+      fromDate = LocalDate.now(UTC).minusDays(daysBack.toLong())
     )
     every { sleepLogService.calculateSleepStats(userId, daysBack) } returns expectedStats
 

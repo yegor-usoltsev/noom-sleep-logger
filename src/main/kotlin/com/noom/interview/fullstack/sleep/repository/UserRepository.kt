@@ -47,12 +47,11 @@ class UserRepository(private val jooq: DSLContext) {
 }
 
 fun UsersRecord.toModel(): User {
-  val timeZone = ZoneId.of(timeZone)
   return User(
     id = id!!,
     name = name,
-    timeZone = timeZone,
-    createdAt = createdAt!!.atZone(timeZone),
-    updatedAt = updatedAt!!.atZone(timeZone)
+    timeZone = ZoneId.of(timeZone),
+    createdAt = createdAt!!,
+    updatedAt = updatedAt!!
   )
 }

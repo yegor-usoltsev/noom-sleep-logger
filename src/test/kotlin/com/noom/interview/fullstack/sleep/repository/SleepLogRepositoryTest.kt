@@ -1,9 +1,6 @@
 package com.noom.interview.fullstack.sleep.repository
 
-import com.noom.interview.fullstack.sleep.LAX
-import com.noom.interview.fullstack.sleep.WAW
-import com.noom.interview.fullstack.sleep.createSleepLogRequest
-import com.noom.interview.fullstack.sleep.createUserRequest
+import com.noom.interview.fullstack.sleep.*
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.model.MoodFrequencies
 import com.noom.interview.fullstack.sleep.model.Pagination
@@ -41,7 +38,6 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Then
     assertThat(actual.id).isNotNull()
     assertThat(actual.userId).isEqualTo(user.id)
-    assertThat(actual.timeZone).isEqualTo(user.timeZone)
     assertThat(actual.bedTime).isCloseTo(given.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.wakeTime).isCloseTo(given.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.mood).isEqualTo(given.mood)
@@ -83,8 +79,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Given
     val user = userRepository.create(createUserRequest())
     val newSleepLog = createSleepLogRequest(
-      bedTime = ZonedDateTime.now(),
-      wakeTime = ZonedDateTime.now().minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      bedTime = ZonedDateTime.now(UTC),
+      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
     )
 
     // When
@@ -130,8 +126,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = ZonedDateTime.now().minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = ZonedDateTime.now().minus(24, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(UTC).minus(24 + 8, ChronoUnit.HOURS),
+        wakeTime = ZonedDateTime.now(UTC).minus(24, ChronoUnit.HOURS)
       )
     )
     val latestLog = sleepLogRepository.create(user.id, createSleepLogRequest())
@@ -215,7 +211,6 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(updatedLog).isNotNull()
     assertThat(updatedLog!!.id).isEqualTo(createdLog.id)
     assertThat(updatedLog.userId).isEqualTo(createdLog.userId)
-    assertThat(updatedLog.timeZone).isEqualTo(createdLog.timeZone)
     assertThat(updatedLog.bedTime).isCloseTo(updateRequest.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.wakeTime).isCloseTo(updateRequest.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.mood).isEqualTo(updateRequest.mood)

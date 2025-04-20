@@ -2,16 +2,16 @@ package com.noom.interview.fullstack.sleep.model
 
 import com.noom.interview.fullstack.sleep.UTC
 import jakarta.validation.constraints.Pattern
+import java.time.Instant
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 data class User(
   val id: UUID,
   val name: String,
   val timeZone: ZoneId,
-  val createdAt: ZonedDateTime,
-  val updatedAt: ZonedDateTime
+  val createdAt: Instant,
+  val updatedAt: Instant
 )
 
 data class CreateUserRequest(

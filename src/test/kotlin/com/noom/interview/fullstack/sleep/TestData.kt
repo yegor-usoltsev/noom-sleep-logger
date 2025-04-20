@@ -13,8 +13,8 @@ fun createUser(
   id: UUID = UUID.randomUUID(),
   name: String = "${UUID.randomUUID()}",
   timeZone: ZoneId = UTC,
-  createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
-  updatedAt: ZonedDateTime = ZonedDateTime.now(timeZone)
+  createdAt: Instant = Instant.now(),
+  updatedAt: Instant = Instant.now()
 ): User = User(
   id = id,
   name = name,
@@ -33,8 +33,8 @@ fun createUserRequest(
 
 fun CreateUserRequest.toUser(
   id: UUID = UUID.randomUUID(),
-  createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
-  updatedAt: ZonedDateTime = ZonedDateTime.now(timeZone)
+  createdAt: Instant = Instant.now(),
+  updatedAt: Instant = Instant.now()
 ): User = createUser(
   id = id,
   name = name,
@@ -46,18 +46,16 @@ fun CreateUserRequest.toUser(
 fun createSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
-  timeZone: ZoneId = UTC,
-  bedTime: ZonedDateTime = ZonedDateTime.now(timeZone).minus(8, ChronoUnit.HOURS),
-  wakeTime: ZonedDateTime = ZonedDateTime.now(timeZone),
+  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS),
+  wakeTime: ZonedDateTime = ZonedDateTime.now(UTC),
   mood: Mood = Mood.entries.random(),
   date: LocalDate = wakeTime.toLocalDate(),
   duration: Duration = Duration.between(bedTime, wakeTime),
-  createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
-  updatedAt: ZonedDateTime = ZonedDateTime.now(timeZone)
+  createdAt: Instant = Instant.now(),
+  updatedAt: Instant = Instant.now()
 ): SleepLog = SleepLog(
   id = id,
   userId = userId,
-  timeZone = timeZone,
   bedTime = bedTime,
   wakeTime = wakeTime,
   mood = mood,
@@ -68,8 +66,8 @@ fun createSleepLog(
 )
 
 fun createSleepLogRequest(
-  bedTime: ZonedDateTime = ZonedDateTime.now().minus(8, ChronoUnit.HOURS),
-  wakeTime: ZonedDateTime = ZonedDateTime.now(),
+  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS),
+  wakeTime: ZonedDateTime = ZonedDateTime.now(UTC),
   mood: Mood = Mood.entries.random()
 ): CreateSleepLogRequest = CreateSleepLogRequest(
   bedTime = bedTime,
@@ -80,15 +78,13 @@ fun createSleepLogRequest(
 fun CreateSleepLogRequest.toSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
-  timeZone: ZoneId = UTC,
   date: LocalDate = wakeTime.toLocalDate(),
   duration: Duration = Duration.between(bedTime, wakeTime),
-  createdAt: ZonedDateTime = ZonedDateTime.now(timeZone),
-  updatedAt: ZonedDateTime = ZonedDateTime.now(timeZone)
+  createdAt: Instant = Instant.now(),
+  updatedAt: Instant = Instant.now()
 ): SleepLog = createSleepLog(
   id = id,
   userId = userId,
-  timeZone = timeZone,
   bedTime = bedTime,
   wakeTime = wakeTime,
   mood = mood,
