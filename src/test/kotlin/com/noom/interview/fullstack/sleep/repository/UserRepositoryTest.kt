@@ -21,7 +21,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
   @Test
   fun `create should create a new user`() {
     // Given
-    val newUser = createUserRequest(name = " TEST-user ")
+    val newUser = createUserRequest(name = " TEST-user ", timeZone = LAX)
 
     // When
     val createdUser = userRepository.create(newUser)
@@ -29,6 +29,7 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     // Then
     assertThat(createdUser.id).isNotNull()
     assertThat(createdUser.name).isEqualTo(newUser.name.trim().lowercase())
+    assertThat(createdUser.timeZone).isEqualTo(newUser.timeZone)
     assertThat(createdUser.createdAt).isNotNull()
     assertThat(createdUser.updatedAt).isNotNull()
   }

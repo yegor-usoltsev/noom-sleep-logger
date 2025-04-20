@@ -1,6 +1,7 @@
 package com.noom.interview.fullstack.sleep.repository
 
 import com.noom.interview.fullstack.sleep.applyPagination
+import com.noom.interview.fullstack.sleep.atTimeZone
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.jooq.tables.SleepLogs.Companion.SLEEP_LOGS
 import com.noom.interview.fullstack.sleep.jooq.tables.SleepLogsView.Companion.SLEEP_LOGS_VIEW
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.time.ZoneId
+import java.time.ZoneOffset.UTC
 import java.util.*
 
 @Repository
@@ -89,23 +91,22 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .execute() > 0
   }
 
-  // TODO
   fun calculateSleepStats(userId: UUID, daysBack: Int): SleepStats? {
-    val toDate = currentLocalDate()
+    val toDate = currentTimestamp().atTimeZone(SLEEP_LOGS_VIEW.TIME_ZONE).cast(LOCALDATE)
     val fromDate = toDate.minus(daysBack)
 
     val fromDateField = fromDate.`as`("from_date")
     val toDateField = toDate.`as`("to_date")
     val averageBedTimeField = avg(
       timestampDiff(
-        SLEEP_LOGS_VIEW.BED_TIME.cast(TIMESTAMP),
-        SLEEP_LOGS_VIEW.WAKE_TIME.cast(DATE).cast(TIMESTAMP)
+        SLEEP_LOGS_VIEW.BED_TIME.cast(TIMESTAMP).atTimeZone(inline(UTC.id)).atTimeZone(SLEEP_LOGS_VIEW.TIME_ZONE),
+        SLEEP_LOGS_VIEW.DATE.cast(TIMESTAMP)
       )
     ).cast(LOCALTIME).`as`("average_bed_time")
     val averageWakeTimeField = avg(
       timestampDiff(
-        SLEEP_LOGS_VIEW.WAKE_TIME.cast(TIMESTAMP),
-        SLEEP_LOGS_VIEW.WAKE_TIME.cast(DATE).cast(TIMESTAMP)
+        SLEEP_LOGS_VIEW.WAKE_TIME.cast(TIMESTAMP).atTimeZone(inline(UTC.id)).atTimeZone(SLEEP_LOGS_VIEW.TIME_ZONE),
+        SLEEP_LOGS_VIEW.DATE.cast(TIMESTAMP)
       )
     ).cast(LOCALTIME).`as`("average_wake_time")
     val averageDurationField = avg(SLEEP_LOGS_VIEW.DURATION).cast(INTERVAL).`as`("average_duration")

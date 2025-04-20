@@ -15,7 +15,10 @@ import org.springframework.boot.test.autoconfigure.jooq.JooqTest
 import org.springframework.context.annotation.Import
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DuplicateKeyException
-import java.time.*
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -29,7 +32,7 @@ class SleepLogRepositoryTest @Autowired constructor(
   @Test
   fun `create should create a new sleep log`() {
     // Given
-    val user = userRepository.create(createUserRequest())
+    val user = userRepository.create(createUserRequest(timeZone = LAX))
     val given = createSleepLogRequest()
 
     // When
@@ -38,6 +41,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Then
     assertThat(actual.id).isNotNull()
     assertThat(actual.userId).isEqualTo(user.id)
+    assertThat(actual.timeZone).isEqualTo(user.timeZone)
     assertThat(actual.bedTime).isCloseTo(given.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.wakeTime).isCloseTo(given.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(actual.mood).isEqualTo(given.mood)
@@ -196,7 +200,7 @@ class SleepLogRepositoryTest @Autowired constructor(
   @Test
   fun `updateById should update sleep log when exists`() {
     // Given
-    val user = userRepository.create(createUserRequest())
+    val user = userRepository.create(createUserRequest(timeZone = LAX))
     val createdLog = sleepLogRepository.create(user.id, createSleepLogRequest())
     val updateRequest = createSleepLogRequest(
       bedTime = createdLog.bedTime.minus(1, ChronoUnit.HOURS),
@@ -211,6 +215,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(updatedLog).isNotNull()
     assertThat(updatedLog!!.id).isEqualTo(createdLog.id)
     assertThat(updatedLog.userId).isEqualTo(createdLog.userId)
+    assertThat(updatedLog.timeZone).isEqualTo(createdLog.timeZone)
     assertThat(updatedLog.bedTime).isCloseTo(updateRequest.bedTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.wakeTime).isCloseTo(updateRequest.wakeTime, within(1, ChronoUnit.SECONDS))
     assertThat(updatedLog.mood).isEqualTo(updateRequest.mood)
@@ -294,13 +299,12 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(sleepLogRepository.findById(user2.id, createdLogForUser2.id)).isNotNull()
   }
 
-  // TODO
   @Test
   fun `calculateSleepStats should return sleep stats for a user`() {
     // Given
-    val user = userRepository.create(createUserRequest())
-    val nowDate = LocalDate.now()
-    val now = LocalDate.now().atStartOfDay().plusHours(7).plusMinutes(30).atZone(ZoneOffset.UTC) // 07:30
+    val user = userRepository.create(createUserRequest(timeZone = LAX))
+    val nowDate = LocalDate.now(user.timeZone)
+    val now = nowDate.atStartOfDay(user.timeZone).plusHours(7).plusMinutes(30) // 07:30
     val daysBack = 30
     sleepLogRepository.create(
       user.id,
@@ -333,6 +337,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     // Then
     assertThat(stats).isNotNull()
     assertThat(stats!!.userId).isEqualTo(user.id)
+    assertThat(stats.timeZone).isEqualTo(user.timeZone)
     assertThat(stats.fromDate).isEqualTo(nowDate.minusDays(daysBack.toLong()))
     assertThat(stats.toDate).isEqualTo(nowDate)
     assertThat(stats.averageBedTime).isCloseTo(LocalTime.of(0, 30), within(1, ChronoUnit.SECONDS))
