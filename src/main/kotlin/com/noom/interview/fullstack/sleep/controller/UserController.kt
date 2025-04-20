@@ -1,6 +1,8 @@
 package com.noom.interview.fullstack.sleep.controller
 
 import com.noom.interview.fullstack.sleep.NotFoundException
+import com.noom.interview.fullstack.sleep.X_TOTAL_COUNT
+import com.noom.interview.fullstack.sleep.headersOf
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
@@ -28,7 +30,7 @@ class UserController(private val userService: UserService) {
   ): ResponseEntity<List<User>> {
     val pagination = Pagination.fromPageAndSize(page, pageSize)
     val users = userService.findAll(pagination)
-    return ResponseEntity(users, HttpStatus.OK)
+    return ResponseEntity(users.list, headersOf(X_TOTAL_COUNT to "${users.totalSize}"), HttpStatus.OK)
   }
 
   @GetMapping("/{user-id}")

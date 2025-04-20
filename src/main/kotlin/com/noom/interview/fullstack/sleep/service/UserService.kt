@@ -1,6 +1,7 @@
 package com.noom.interview.fullstack.sleep.service
 
 import com.noom.interview.fullstack.sleep.model.CreateUserRequest
+import com.noom.interview.fullstack.sleep.model.Page
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.User
 import com.noom.interview.fullstack.sleep.repository.UserRepository
@@ -16,7 +17,7 @@ class UserService(private val userRepository: UserRepository) {
     return userRepository.create(newUser)
   }
 
-  fun findAll(pagination: Pagination? = null): List<User> {
+  fun findAll(pagination: Pagination? = null): Page<User> {
     return userRepository.findAll(pagination)
   }
 

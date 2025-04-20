@@ -24,3 +24,8 @@ data class Pagination(
   }
 
 }
+
+class Page<T>(
+  val list: List<T>,
+  val totalSize: Int
+) : List<T> by list

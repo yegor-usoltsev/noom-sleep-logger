@@ -1,9 +1,6 @@
 package com.noom.interview.fullstack.sleep.service
 
-import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
-import com.noom.interview.fullstack.sleep.model.Pagination
-import com.noom.interview.fullstack.sleep.model.SleepLog
-import com.noom.interview.fullstack.sleep.model.SleepStats
+import com.noom.interview.fullstack.sleep.model.*
 import com.noom.interview.fullstack.sleep.repository.SleepLogRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +14,7 @@ class SleepLogService(private val sleepLogRepository: SleepLogRepository) {
     return sleepLogRepository.create(userId, newSleepLog)
   }
 
-  fun findAll(userId: UUID, pagination: Pagination? = null): List<SleepLog> {
+  fun findAll(userId: UUID, pagination: Pagination? = null): Page<SleepLog> {
     return sleepLogRepository.findAll(userId, pagination)
   }
 

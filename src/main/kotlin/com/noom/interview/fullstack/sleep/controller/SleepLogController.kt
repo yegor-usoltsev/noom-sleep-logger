@@ -2,6 +2,8 @@ package com.noom.interview.fullstack.sleep.controller
 
 import com.noom.interview.fullstack.sleep.NotFoundException
 import com.noom.interview.fullstack.sleep.UnprocessableEntityException
+import com.noom.interview.fullstack.sleep.X_TOTAL_COUNT
+import com.noom.interview.fullstack.sleep.headersOf
 import com.noom.interview.fullstack.sleep.model.CreateSleepLogRequest
 import com.noom.interview.fullstack.sleep.model.Pagination
 import com.noom.interview.fullstack.sleep.model.SleepLog
@@ -35,7 +37,7 @@ class SleepLogController(private val sleepLogService: SleepLogService) {
   ): ResponseEntity<List<SleepLog>> {
     val pagination = Pagination.fromPageAndSize(page, pageSize)
     val sleepLogs = sleepLogService.findAll(userId, pagination)
-    return ResponseEntity(sleepLogs, HttpStatus.OK)
+    return ResponseEntity(sleepLogs.list, headersOf(X_TOTAL_COUNT to "${sleepLogs.totalSize}"), HttpStatus.OK)
   }
 
   @GetMapping("/latest")

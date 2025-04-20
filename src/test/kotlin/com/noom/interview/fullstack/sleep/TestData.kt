@@ -9,6 +9,8 @@ import java.util.*
 val LAX: ZoneId = ZoneId.of("America/Los_Angeles") // UTC-08:00 / UTC-07:00 (DST)
 val WAW: ZoneId = ZoneId.of("Europe/Warsaw")       // UTC+01:00 / UTC+02:00 (DST)
 
+fun <T> List<T>.toPage(): Page<T> = Page(this, size)
+
 fun createUser(
   id: UUID = UUID.randomUUID(),
   name: String = "${UUID.randomUUID()}",

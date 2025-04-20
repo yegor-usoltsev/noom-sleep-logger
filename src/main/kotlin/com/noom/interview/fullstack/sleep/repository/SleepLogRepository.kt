@@ -12,6 +12,7 @@ import com.noom.interview.fullstack.sleep.model.*
 import org.jooq.DSLContext
 import org.jooq.impl.DSL.*
 import org.jooq.impl.SQLDataType.*
+import org.jooq.kotlin.fetchSingleValue
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
@@ -38,13 +39,20 @@ class SleepLogRepository(private val jooq: DSLContext) {
       .let { findById(userId, it)!! }
   }
 
-  fun findAll(userId: UUID, pagination: Pagination? = null): List<SleepLog> {
-    return jooq
-      .selectFrom(SLEEP_LOGS_VIEW)
-      .where(SLEEP_LOGS_VIEW.USER_ID.eq(userId))
-      .orderBy(SLEEP_LOGS_VIEW.WAKE_TIME.desc())
-      .applyPagination(pagination)
-      .fetch { it.toModel() }
+  fun findAll(userId: UUID, pagination: Pagination? = null): Page<SleepLog> {
+    return Page(
+      list = jooq
+        .selectFrom(SLEEP_LOGS_VIEW)
+        .where(SLEEP_LOGS_VIEW.USER_ID.eq(userId))
+        .orderBy(SLEEP_LOGS_VIEW.WAKE_TIME.desc())
+        .applyPagination(pagination)
+        .fetch { it.toModel() },
+      totalSize = jooq
+        .selectCount()
+        .from(SLEEP_LOGS_VIEW)
+        .where(SLEEP_LOGS_VIEW.USER_ID.eq(userId))
+        .fetchSingleValue()
+    )
   }
 
   fun findLatest(userId: UUID): SleepLog? {
