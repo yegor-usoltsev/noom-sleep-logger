@@ -99,4 +99,62 @@ class UserRepositoryTest @Autowired constructor(private val userRepository: User
     assertThat(foundUser).isNull()
   }
 
+  @Test
+  fun `updateById should update user when exists`() {
+    // Given
+    val createdUser = userRepository.create(createUserRequest(timeZone = LAX))
+    val updateRequest = createUserRequest(name = " NEW-user ", timeZone = WAW)
+
+    // When
+    val updatedUser = userRepository.updateById(createdUser.id, updateRequest)
+
+    // Then
+    assertThat(updatedUser).isNotNull()
+    assertThat(updatedUser!!.id).isEqualTo(createdUser.id)
+    assertThat(updatedUser.name).isEqualTo(updateRequest.name.trim().lowercase())
+    assertThat(updatedUser.timeZone).isEqualTo(updateRequest.timeZone)
+    assertThat(updatedUser.createdAt).isEqualTo(createdUser.createdAt)
+    assertThat(updatedUser.updatedAt).isAfter(createdUser.updatedAt)
+  }
+
+  @Test
+  fun `updateById should return null when user does not exist`() {
+    // Given
+    val nonExistentId = UUID.randomUUID()
+    val updateRequest = createUserRequest()
+
+    // When
+    val updatedUser = userRepository.updateById(nonExistentId, updateRequest)
+
+    // Then
+    assertThat(updatedUser).isNull()
+  }
+
+  @Test
+  fun `updateById should throw when name is not unique`() {
+    // Given
+    userRepository.create(createUserRequest(name = "user1"))
+    val user2 = userRepository.create(createUserRequest(name = "user2"))
+    val updateRequest = createUserRequest(name = " USER1 ") // same name as user1
+
+    // When
+    val code = ThrowingCallable { userRepository.updateById(user2.id, updateRequest) }
+
+    // Then
+    assertThatThrownBy(code).isInstanceOf(DuplicateKeyException::class.java)
+  }
+
+  @Test
+  fun `updateById should throw when name is not valid`() {
+    // Given
+    val user = userRepository.create(createUserRequest())
+    val updateRequest = createUserRequest(name = "") // name is not valid
+
+    // When
+    val code = ThrowingCallable { userRepository.updateById(user.id, updateRequest) }
+
+    // Then
+    assertThatThrownBy(code).isInstanceOf(DataIntegrityViolationException::class.java)
+  }
+
 }

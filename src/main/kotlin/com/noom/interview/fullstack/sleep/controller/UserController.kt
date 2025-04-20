@@ -37,4 +37,13 @@ class UserController(private val userService: UserService) {
     return ResponseEntity(user, HttpStatus.OK)
   }
 
+  @PutMapping("/{user-id}")
+  fun updateById(
+    @PathVariable(value = "user-id") id: UUID,
+    @Valid @RequestBody newUser: CreateUserRequest
+  ): ResponseEntity<User> {
+    val user = userService.updateById(id, newUser) ?: throw NotFoundException()
+    return ResponseEntity(user, HttpStatus.OK)
+  }
+
 }

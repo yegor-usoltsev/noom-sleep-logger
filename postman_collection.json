@@ -336,6 +336,212 @@
 							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/00000000-0000-0000-0000-000000000000\"\n}"
 						}
 					]
+				},
+				{
+					"name": "updateById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json();",
+									"if (pm.response.code === 201 && body?.id) {",
+									"    pm.collectionVariables.set(\"USER_ID\", body.id);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"America/Los_Angeles\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"America/Los_Angeles\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Apr 2025 13:06:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"a1ff39aa-fa77-4962-ac45-bb5f52d903bf\",\n    \"name\": \"yegor\",\n    \"timeZone\": \"America/Los_Angeles\",\n    \"createdAt\": \"2025-04-20T11:59:26.196823Z\",\n    \"updatedAt\": \"2025-04-20T13:06:30.605630Z\"\n}"
+						},
+						{
+							"name": "400 Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \" !@# \",\n    \"timeZone\": \"America/Los_Angeles\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Apr 2025 13:07:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Invalid request content.\",\n    \"instance\": \"/api/v1/users/a1ff39aa-fa77-4962-ac45-bb5f52d903bf\"\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yegor\",\n    \"timeZone\": \"America/Los_Angeles\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Apr 2025 13:09:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"instance\": \"/api/v1/users/00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						{
+							"name": "409 Conflict",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Dan\",\n    \"timeZone\": \"America/Los_Angeles\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BASE_URL}}/api/v1/users/{{USER_ID}}"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Apr 2025 13:08:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"detail\": \"jOOQ; SQL [update \\\"users\\\" set \\\"name\\\" = ?, \\\"updated_at\\\" = cast(? as timestamp with time zone), \\\"time_zone\\\" = ? where \\\"users\\\".\\\"id\\\" = cast(? as uuid) returning \\\"users\\\".\\\"id\\\"]; ERROR: duplicate key value violates unique constraint \\\"users_name_key\\\"\\n  Detail: Key (name)=(dan) already exists.\",\n    \"instance\": \"/api/v1/users/a1ff39aa-fa77-4962-ac45-bb5f52d903bf\"\n}"
+						}
+					]
 				}
 			]
 		},
