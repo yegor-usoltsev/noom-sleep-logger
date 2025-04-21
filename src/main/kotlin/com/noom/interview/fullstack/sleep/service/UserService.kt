@@ -25,6 +25,7 @@ class UserService(private val userRepository: UserRepository) {
     return userRepository.findById(id)
   }
 
+  @Transactional
   fun updateById(id: UUID, newUser: CreateUserRequest): User? {
     return userRepository.updateById(id, newUser)
   }
