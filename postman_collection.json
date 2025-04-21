@@ -232,6 +232,12 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "X-Total-Count",
+									"value": "2",
+									"description": "",
+									"type": "text"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json"
 								},
@@ -829,6 +835,12 @@
 							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
+								{
+									"key": "X-Total-Count",
+									"value": "3",
+									"description": "",
+									"type": "text"
+								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
