@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jooq.meta.jaxb.Logging
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
   id("io.spring.dependency-management")
@@ -116,6 +117,14 @@ java {
   sourceCompatibility = JavaVersion.toVersion(javaVersion)
   targetCompatibility = JavaVersion.toVersion(javaVersion)
   toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+}
+
+tasks.withType<BootRun> {
+  systemProperties(
+    "user.country" to "US",
+    "user.language" to "en",
+    "user.timezone" to "UTC"
+  )
 }
 
 tasks.withType<Test> {
