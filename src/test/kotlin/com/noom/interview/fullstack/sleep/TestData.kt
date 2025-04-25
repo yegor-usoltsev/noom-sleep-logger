@@ -3,7 +3,6 @@ package com.noom.interview.fullstack.sleep
 import com.noom.interview.fullstack.sleep.jooq.enums.Mood
 import com.noom.interview.fullstack.sleep.model.*
 import java.time.*
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 val LAX: ZoneId = ZoneId.of("America/Los_Angeles") // UTC-08:00 / UTC-07:00 (DST)
@@ -48,7 +47,7 @@ fun CreateUserRequest.toUser(
 fun createSleepLog(
   id: UUID = UUID.randomUUID(),
   userId: UUID = UUID.randomUUID(),
-  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS),
+  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minusHours(8),
   wakeTime: ZonedDateTime = ZonedDateTime.now(UTC),
   mood: Mood = Mood.entries.random(),
   date: LocalDate = wakeTime.toLocalDate(),
@@ -68,7 +67,7 @@ fun createSleepLog(
 )
 
 fun createSleepLogRequest(
-  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS),
+  bedTime: ZonedDateTime = ZonedDateTime.now(UTC).minusHours(8),
   wakeTime: ZonedDateTime = ZonedDateTime.now(UTC),
   mood: Mood = Mood.entries.random()
 ): CreateSleepLogRequest = CreateSleepLogRequest(

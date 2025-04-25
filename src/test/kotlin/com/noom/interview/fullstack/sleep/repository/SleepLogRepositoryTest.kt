@@ -30,7 +30,10 @@ class SleepLogRepositoryTest @Autowired constructor(
   fun `create should create a new sleep log`() {
     // Given
     val user = userRepository.create(createUserRequest(timeZone = LAX))
-    val given = createSleepLogRequest()
+    val given = createSleepLogRequest(
+      bedTime = ZonedDateTime.now(LAX).minusHours(8),
+      wakeTime = ZonedDateTime.now(LAX)
+    )
 
     // When
     val actual = sleepLogRepository.create(user.id, given)
@@ -80,7 +83,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     val user = userRepository.create(createUserRequest())
     val newSleepLog = createSleepLogRequest(
       bedTime = ZonedDateTime.now(UTC),
-      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      wakeTime = ZonedDateTime.now(UTC).minusHours(8) // wakeTime is before bedTime
     )
 
     // When
@@ -97,15 +100,15 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = ZonedDateTime.now(LAX).minus(48 + 8, ChronoUnit.HOURS),
-        wakeTime = ZonedDateTime.now(LAX).minus(48, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(LAX).minusHours(48 + 8),
+        wakeTime = ZonedDateTime.now(LAX).minusHours(48)
       )
     )
     val sleepLog1 = sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = ZonedDateTime.now(WAW).minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = ZonedDateTime.now(WAW).minus(24, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(WAW).minusHours(24 + 8),
+        wakeTime = ZonedDateTime.now(WAW).minusHours(24)
       )
     )
     val sleepLog2 = sleepLogRepository.create(user.id, createSleepLogRequest())
@@ -126,8 +129,8 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = ZonedDateTime.now(UTC).minus(24 + 8, ChronoUnit.HOURS),
-        wakeTime = ZonedDateTime.now(UTC).minus(24, ChronoUnit.HOURS)
+        bedTime = ZonedDateTime.now(UTC).minusHours(24 + 8),
+        wakeTime = ZonedDateTime.now(UTC).minusHours(24)
       )
     )
     val latestLog = sleepLogRepository.create(user.id, createSleepLogRequest())
@@ -197,10 +200,15 @@ class SleepLogRepositoryTest @Autowired constructor(
   fun `updateById should update sleep log when exists`() {
     // Given
     val user = userRepository.create(createUserRequest(timeZone = LAX))
-    val createdLog = sleepLogRepository.create(user.id, createSleepLogRequest())
+    val createdLog = sleepLogRepository.create(
+      user.id, createSleepLogRequest(
+        bedTime = ZonedDateTime.now(LAX).minusHours(8),
+        wakeTime = ZonedDateTime.now(LAX)
+      )
+    )
     val updateRequest = createSleepLogRequest(
-      bedTime = createdLog.bedTime.minus(1, ChronoUnit.HOURS),
-      wakeTime = createdLog.wakeTime.minus(1, ChronoUnit.HOURS),
+      bedTime = createdLog.bedTime.minusMinutes(1),
+      wakeTime = createdLog.wakeTime.plusMinutes(1),
       mood = Mood.entries.filter { it != createdLog.mood }.random()
     )
 
@@ -304,24 +312,24 @@ class SleepLogRepositoryTest @Autowired constructor(
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = now.minus(24 + 8, ChronoUnit.HOURS), // 23:30
-        wakeTime = now.minus(24, ChronoUnit.HOURS), // 07:30
+        bedTime = now.minusHours(24 + 8), // 23:30
+        wakeTime = now.minusHours(24), // 07:30
         mood = Mood.GOOD
       )
     )
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = now.minus(48 + 7, ChronoUnit.HOURS), // 00:30
-        wakeTime = now.minus(48 - 1, ChronoUnit.HOURS), // 08:30
+        bedTime = now.minusHours(48 + 7), // 00:30
+        wakeTime = now.minusHours(48 - 1), // 08:30
         mood = Mood.OK
       )
     )
     sleepLogRepository.create(
       user.id,
       createSleepLogRequest(
-        bedTime = now.minus(72 + 6, ChronoUnit.HOURS), // 01:30
-        wakeTime = now.minus(72 - 2, ChronoUnit.HOURS), // 09:30
+        bedTime = now.minusHours(72 + 6), // 01:30
+        wakeTime = now.minusHours(72 - 2), // 09:30
         mood = Mood.BAD
       )
     )
@@ -337,7 +345,7 @@ class SleepLogRepositoryTest @Autowired constructor(
     assertThat(stats.toDate).isEqualTo(nowDate)
     assertThat(stats.averageBedTime).isCloseTo(LocalTime.of(0, 30), within(1, ChronoUnit.SECONDS))
     assertThat(stats.averageWakeTime).isCloseTo(LocalTime.of(8, 30), within(1, ChronoUnit.SECONDS))
-    assertThat(stats.averageDuration).isCloseTo(Duration.ofHours(8), Duration.ofMinutes(1))
+    assertThat(stats.averageDuration).isCloseTo(Duration.ofHours(8), Duration.ofSeconds(1))
     assertThat(stats.moodFrequencies).isEqualTo(MoodFrequencies(bad = 1, ok = 1, good = 1))
   }
 

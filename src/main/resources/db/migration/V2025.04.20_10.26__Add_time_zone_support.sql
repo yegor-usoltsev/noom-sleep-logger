@@ -18,7 +18,7 @@ create unique index on sleep_logs (user_id, date(wake_time));
 
 create view sleep_logs_view as
 select sleep_logs.*,
-       users.time_zone                              as time_zone,
-       date(wake_time at time zone users.time_zone) as date
+       users.time_zone                                                 as time_zone,
+       date(wake_time at time zone 'UTC' at time zone users.time_zone) as date
 from sleep_logs
        join users on sleep_logs.user_id = users.id;

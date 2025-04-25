@@ -17,7 +17,6 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.*
 import java.time.LocalDate
 import java.time.ZonedDateTime
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 @WebMvcTest(SleepLogController::class)
@@ -56,7 +55,7 @@ class SleepLogControllerTest @Autowired constructor(
     // Given
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
-      bedTime = ZonedDateTime.now(UTC).plus(8, ChronoUnit.HOURS) // bedTime is in a future
+      bedTime = ZonedDateTime.now(UTC).plusHours(8) // bedTime is in a future
     )
 
     // When/Then
@@ -74,7 +73,7 @@ class SleepLogControllerTest @Autowired constructor(
     val userId = UUID.randomUUID()
     val request = createSleepLogRequest(
       bedTime = ZonedDateTime.now(UTC),
-      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      wakeTime = ZonedDateTime.now(UTC).minusHours(8) // wakeTime is before bedTime
     )
 
     // When/Then
@@ -224,7 +223,7 @@ class SleepLogControllerTest @Autowired constructor(
     val sleepLogId = UUID.randomUUID()
     val request = createSleepLogRequest(
       bedTime = ZonedDateTime.now(UTC),
-      wakeTime = ZonedDateTime.now(UTC).minus(8, ChronoUnit.HOURS) // wakeTime is before bedTime
+      wakeTime = ZonedDateTime.now(UTC).minusHours(8) // wakeTime is before bedTime
     )
 
     // When/Then
