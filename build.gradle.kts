@@ -25,7 +25,6 @@ val javaVersion: String by project
 val jooqVersion: String by project
 val kotlinVersion: String by project
 val postgresqlVersion: String by project
-val springBootVersion: String by project
 val springmockkVersion: String by project
 
 extra["flyway.version"] = flywayVersion
