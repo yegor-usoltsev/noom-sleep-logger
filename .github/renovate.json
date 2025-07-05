@@ -13,10 +13,10 @@
       "matchDatasources": [
         "docker"
       ],
-      "matchPackagePrefixes": [
-        "azul/zulu-openjdk-alpine"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "azul/zulu-openjdk-alpine{/,}**"
+      ]
     }
   ]
 }
