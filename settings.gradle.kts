@@ -9,6 +9,7 @@ pluginManagement {
 
   repositories {
     mavenCentral()
+    gradlePluginPortal()
   }
 
   plugins {
