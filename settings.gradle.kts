@@ -8,7 +8,7 @@ pluginManagement {
   val springBootVersion: String by settings
 
   repositories {
-    gradlePluginPortal()
+    mavenCentral()
   }
 
   plugins {
