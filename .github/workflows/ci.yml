@@ -14,7 +14,7 @@ jobs:
       packages: write
     services:
       postgres:
-        image: postgres:17-alpine
+        image: postgres:18-alpine
         env:
           POSTGRES_DB: sleep
           POSTGRES_USER: sleep
@@ -32,7 +32,7 @@ jobs:
           java-version: 21
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Build project
         run: ./gradlew build
